@@ -6,9 +6,15 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "format": "turbo format",
-    "typecheck": "turbo typecheck"
+    "typecheck": "turbo typecheck",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio"
   },
   "devDependencies": {
+    "@types/pg": "^8.20.0",
+    "drizzle-kit": "^0.31.10",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "turbo": "^2.8.17",
@@ -23,6 +29,8 @@
     "packages/*"
   ],
   "dependencies": {
-    "better-auth": "^1.6.9"
+    "better-auth": "^1.6.9",
+    "drizzle-orm": "^0.45.2",
+    "pg": "^8.20.0"
   }
 }

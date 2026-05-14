@@ -1,5 +1,1 @@
-import { User } from "./user"
-
-export const schema = {
-	User,
-}
+export * from "../../auth/lib/auth-schema";
