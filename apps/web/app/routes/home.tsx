@@ -1,16 +1,28 @@
-import { Button } from "@workspace/ui/components/button"
-
-export default function Home() {
+import { AppSidebar } from "@workspace/ui/components/app-sidebar"
+import { SidebarInset, SidebarProvider } from "@workspace/ui/components/sidebar"
+import { TopBar } from "components/top-bar"
+import { CardXp } from "components/aluno/card-xp"
+import { CardDesempenho } from "components/aluno/card-desempenho"
+import { CardAtividade } from "components/aluno/atividades-semanais"
+import { Avisos } from "components/aluno/avisos"
+import { Disciplina } from "components/aluno/disciplinas"
+export default function Page() {
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
+    <SidebarProvider defaultOpen={false}>
+      <AppSidebar />
+      <SidebarInset>
+        <TopBar />
+        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+          <div className="grid auto-rows-min gap-4 md:grid-cols-2">
+            <CardXp />
+            <CardDesempenho />
+            <CardAtividade />
+            <Avisos />
+          </div>
+
+          <Disciplina />
         </div>
-      </div>
-    </div>
+      </SidebarInset>
+    </SidebarProvider>
   )
 }
