@@ -1,11 +1,11 @@
 import { AppSidebar } from "@workspace/ui/components/app-sidebar"
 import { SidebarInset, SidebarProvider } from "@workspace/ui/components/sidebar"
-import { TopBar } from "components/top-bar"
-import { CardXp } from "components/aluno/card-xp"
-import { CardDesempenho } from "components/aluno/card-desempenho"
-import { CardAtividade } from "components/aluno/atividades-semanais"
-import { Avisos } from "components/aluno/avisos"
-import { Disciplina } from "components/aluno/disciplinas"
+import { TopBar } from "components/aluno/top-bar"
+import { CardXp } from "components/aluno/home/card-xp"
+import { CardDesempenho } from "components/aluno/home/card-desempenho"
+import { CardAtividade } from "components/aluno/home/atividades-semanais"
+import { Avisos } from "components/aluno/home/avisos"
+import { Disciplina } from "components/aluno/home/disciplinas"
 export default function Page() {
   return (
     <SidebarProvider defaultOpen={false}>

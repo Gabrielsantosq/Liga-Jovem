@@ -1,6 +1,15 @@
 import { Separator } from "@workspace/ui/components/separator"
 import { SidebarTrigger } from "@workspace/ui/components/sidebar"
 
+import { NavUser } from "@workspace/ui/components/nav-user"
+
+const data = {
+  user: {
+    name: "shadcn",
+    email: "m@example.com",
+    avatar: "",
+  },
+}
 export function TopBar() {
   return (
     <header className="flex h-16 items-center justify-between border-b bg-background/80 px-6 backdrop-blur">
@@ -24,9 +33,7 @@ export function TopBar() {
         </button>
 
         <div className="flex items-center gap-3">
-          <button className="flex h-10 w-10 items-center justify-center rounded-xl border bg-background hover:bg-muted">
-            U
-          </button>
+          <NavUser user={data.user} />
         </div>
       </div>
     </header>

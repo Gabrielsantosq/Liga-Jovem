@@ -26,8 +26,6 @@ import {
   Trophy,
 } from "lucide-react"
 
-import { useState } from "react"
-
 const data = {
   user: {
     name: "shadcn",
@@ -54,7 +52,7 @@ const data = {
   navMain: [
     {
       title: "Inicio",
-      url: "/",
+      url: "home",
       icon: <Home />,
     },
     {
@@ -102,7 +100,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <h1>Em branco</h1>
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

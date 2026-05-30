@@ -10,6 +10,7 @@ import {
   SidebarTrigger,
 } from "@workspace/ui/components/sidebar"
 
+import { DisciplinaDetalhes } from "components/aluno/disciplina/detalhe-disciplina"
 export default function Disciplinas() {
   return (
     <SidebarProvider>
@@ -21,7 +22,7 @@ export default function Disciplinas() {
           </div>
         </header>
         <div>
-          <h1>Disciplinas</h1>
+          <DisciplinaDetalhes />
         </div>
       </SidebarInset>
     </SidebarProvider>

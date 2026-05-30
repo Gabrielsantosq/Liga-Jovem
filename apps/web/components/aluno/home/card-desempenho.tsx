@@ -8,14 +8,15 @@ import {
   CardContent,
   CardFooter,
 } from "@workspace/ui/components/card"
+import { ChartRadialSimple } from "./grafico"
 
-export function CardXp() {
+export function CardDesempenho() {
   return (
     <Card className="rounded-2xl">
       <CardHeader>
-        <CardTitle>Progressão</CardTitle>
+        <CardTitle>Desempenho</CardTitle>
         <CardDescription>
-          Aqui ficara os dados de Progressão tipo o xp
+          <ChartRadialSimple />
         </CardDescription>
       </CardHeader>
     </Card>
