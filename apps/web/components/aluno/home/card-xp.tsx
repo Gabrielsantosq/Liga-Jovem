@@ -39,16 +39,6 @@ export function CardXp() {
 
           <Progress value={62} className="h-3 rounded-full" />
         </div>
-
-        <div className="flex items-center justify-between rounded-2xl bg-muted p-3">
-          <div>
-            <p className="text-sm font-medium">+120 XP hoje</p>
-
-            <p className="text-xs text-muted-foreground">
-              Você está indo muito bem 🚀
-            </p>
-          </div>
-        </div>
       </CardContent>
     </Card>
   )

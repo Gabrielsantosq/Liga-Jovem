@@ -1,16 +1,7 @@
 "use client"
 
-import { TrendingUp } from "lucide-react"
 import { RadialBar, RadialBarChart } from "recharts"
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@workspace/ui/components/card"
 import {
   ChartContainer,
   ChartTooltip,
@@ -18,15 +9,32 @@ import {
   type ChartConfig,
 } from "@workspace/ui/components/chart"
 
-import { Trophy } from "lucide-react"
-export const description = "A radial chart"
-
 const chartData = [
-  { materia: "Matematica", desempenho: 275, fill: "#8B5CF6" },
-  { materia: "Portugues", desempenho: 200, fill: "#06B6D4" },
-  { materia: "Fisica", desempenho: 187, fill: "#F59E0B" },
-  { materia: "Historia", desempenho: 173, fill: "#10B981" },
-  { materia: "Quimica", desempenho: 90, fill: "#EF4444" },
+  {
+    materia: "Matemática",
+    desempenho: 92,
+    fill: "var(--chart-1)",
+  },
+  {
+    materia: "Português",
+    desempenho: 85,
+    fill: "var(--chart-2)",
+  },
+  {
+    materia: "Física",
+    desempenho: 78,
+    fill: "var(--chart-3)",
+  },
+  {
+    materia: "História",
+    desempenho: 88,
+    fill: "var(--chart-4)",
+  },
+  {
+    materia: "Química",
+    desempenho: 70,
+    fill: "var(--chart-5)",
+  },
 ]
 
 const chartConfig = {
@@ -34,76 +42,48 @@ const chartConfig = {
     label: "Desempenho",
   },
   matematica: {
-    label: "Matematica",
-    color: "var(--chart-20)",
+    label: "Matemática",
+    color: "var(--chart-1)",
   },
   portugues: {
-    label: "Portugues",
+    label: "Português",
     color: "var(--chart-2)",
   },
   fisica: {
-    label: "Fisica",
+    label: "Física",
     color: "var(--chart-3)",
   },
   historia: {
-    label: "Historia",
+    label: "História",
     color: "var(--chart-4)",
   },
   quimica: {
-    label: "Quimica",
+    label: "Química",
     color: "var(--chart-5)",
   },
 } satisfies ChartConfig
 
 export function ChartRadialSimple() {
   return (
-    <Card className="flex flex-col rounded-3xl">
-      <CardHeader className="pb-2">
-        <CardTitle>Desempenho Escolar</CardTitle>
-
-        <CardDescription>Seu rendimento por disciplina</CardDescription>
-      </CardHeader>
-
-      <CardContent className="flex justify-center pb-2">
-        <ChartContainer
-          config={chartConfig}
-          className="aspect-square h-[250px]"
-        >
-          <RadialBarChart data={chartData} innerRadius={25} outerRadius={110}>
-            <ChartTooltip
-              cursor={false}
-              content={
-                <ChartTooltipContent
-                  formatter={(value, _name, props) => (
-                    <div className="flex flex-col">
-                      <span className="font-medium">
-                        {props.payload.materia}
-                      </span>
-
-                      <span className="text-muted-foreground">
-                        Desempenho: {value}
-                      </span>
-                    </div>
-                  )}
-                />
-              }
+    <ChartContainer
+      config={chartConfig}
+      className="mx-auto aspect-square h-[250px]"
+    >
+      <RadialBarChart data={chartData} innerRadius={30} outerRadius={110}>
+        <ChartTooltip
+          cursor={false}
+          content={
+            <ChartTooltipContent
+              formatter={(value, name, item) => [
+                `${value}%`,
+                item.payload.materia,
+              ]}
             />
+          }
+        />
 
-            <RadialBar dataKey="desempenho" background />
-          </RadialBarChart>
-        </ChartContainer>
-      </CardContent>
-
-      <CardFooter className="flex-col items-start gap-1 text-sm">
-        <div className="flex items-center gap-2 font-medium">
-          Excelente evolução este mês
-          <Trophy className="h-4 w-4" />
-        </div>
-
-        <p className="text-muted-foreground">
-          Continue mantendo sua frequência e atividades em dia.
-        </p>
-      </CardFooter>
-    </Card>
+        <RadialBar dataKey="desempenho" background cornerRadius={12} />
+      </RadialBarChart>
+    </ChartContainer>
   )
 }

@@ -36,16 +36,6 @@ const data = {
       logo: <GalleryVerticalEndIcon />,
       plan: "Aluno",
     },
-    {
-      name: "Acme Corp.",
-      logo: <AudioLinesIcon />,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: <AudioLinesIcon />,
-      plan: "Free",
-    },
   ],
   navMain: [
     {
@@ -76,7 +66,9 @@ const data = {
   ],
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function SidebarAluno({
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
