@@ -71,7 +71,11 @@ export function NavMain({
             </Collapsible>
           ) : (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild tooltip={item.title}>
+              <SidebarMenuButton
+                asChild
+                tooltip={item.title}
+                className="h-12 text-base"
+              >
                 <a href={item.url}>
                   {item.icon}
 

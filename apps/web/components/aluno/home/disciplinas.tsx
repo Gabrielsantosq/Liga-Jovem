@@ -9,13 +9,13 @@ import {
   CardFooter,
 } from "@workspace/ui/components/card"
 
-export function CardXp() {
+export function Disciplina() {
   return (
-    <Card className="rounded-2xl">
+    <Card className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min">
       <CardHeader>
-        <CardTitle>Progressão</CardTitle>
+        <CardTitle>frequencia</CardTitle>
         <CardDescription>
-          Aqui ficara os dados de Progressão tipo o xp
+          Aqui ficara os dados de toda a frequencia nas disciplinas
         </CardDescription>
       </CardHeader>
     </Card>
