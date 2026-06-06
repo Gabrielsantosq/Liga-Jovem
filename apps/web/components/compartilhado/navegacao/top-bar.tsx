@@ -2,11 +2,12 @@ import { Separator } from "@workspace/ui/components/separator"
 import { SidebarTrigger } from "@workspace/ui/components/sidebar"
 
 import { NavUser } from "@workspace/ui/components/nav-user"
+import { NotificacoesMenu } from "../notificacoes/notificacoes-menu"
 
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
+    name: "Joao",
+    email: "",
     avatar: "",
   },
 }
@@ -17,20 +18,10 @@ export function TopBar() {
         <SidebarTrigger className="-ml-1" />
 
         <Separator orientation="vertical" className="h-4" />
-
-        <div>
-          <h1 className="text-lg font-semibold">Olá, User</h1>
-
-          <p className="text-sm text-muted-foreground">
-            Pronto para mais uma conquista?
-          </p>
-        </div>
       </div>
 
       <div className="flex items-center gap-3">
-        <button className="flex h-10 w-10 items-center justify-center rounded-xl border bg-background hover:bg-muted">
-          🔔
-        </button>
+        <NotificacoesMenu />
 
         <div className="flex items-center gap-3">
           <NavUser user={data.user} />

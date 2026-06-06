@@ -12,20 +12,24 @@ import {
 import { Progress } from "@workspace/ui/components/progress"
 
 import { Trophy } from "lucide-react"
+import { NavUser } from "@workspace/ui/components/nav-user"
 
+const data = {
+  user: {
+    name: "Joao",
+  },
+}
 export function CardXp() {
   return (
     <Card className="rounded-3xl border-0 shadow-sm">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle>Nível 12</CardTitle>
+            <CardTitle className="font-semibold">
+              Ola! {data.user.name}
+            </CardTitle>
 
             <CardDescription>Continue evoluindo seus estudos</CardDescription>
-          </div>
-
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-purple-500 text-white">
-            <Trophy className="h-6 w-6" />
           </div>
         </div>
       </CardHeader>

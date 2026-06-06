@@ -1,4 +1,3 @@
-import { AppSidebar } from "@workspace/ui/components/app-sidebar"
 import {
   SidebarInset,
   SidebarProvider,
@@ -6,14 +5,13 @@ import {
 } from "@workspace/ui/components/sidebar"
 
 import { Atividade } from "components/aluno/atividades/atividade"
-import { SidebarAluno } from "components/compartilhado/navegacao/sidebar-aluno"
+import { BottomBar } from "components/compartilhado/navegacao/BottomBar"
+
 import { TopBar } from "components/compartilhado/navegacao/top-bar"
 
 export default function AtividadesPage() {
   return (
     <SidebarProvider>
-      <SidebarAluno />
-
       <SidebarInset>
         <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur">
           <TopBar />
@@ -30,6 +28,7 @@ export default function AtividadesPage() {
 
           <Atividade />
         </main>
+        <BottomBar />
       </SidebarInset>
     </SidebarProvider>
   )

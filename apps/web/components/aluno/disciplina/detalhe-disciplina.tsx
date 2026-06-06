@@ -1,9 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@workspace/ui/components/card"
+import { Card, CardContent } from "@workspace/ui/components/card"
 
 import { Progress } from "@workspace/ui/components/progress"
 
@@ -14,7 +9,9 @@ type Disciplina = {
   media: number
   faltas: number
   progresso: number
+  icon: React.ReactNode
 }
+import { Calculator, Atom, MapPlusIcon, FlaskConical, Hand } from "lucide-react"
 
 export const disciplinas: Disciplina[] = [
   {
@@ -24,6 +21,7 @@ export const disciplinas: Disciplina[] = [
     media: 10,
     faltas: 0,
     progresso: 80,
+    icon: <Calculator className="h-10 w-10" />,
   },
   {
     id: 2,
@@ -32,6 +30,7 @@ export const disciplinas: Disciplina[] = [
     media: 10,
     faltas: 2,
     progresso: 20,
+    icon: <Hand className="h-10 w-10" />,
   },
   {
     id: 3,
@@ -40,6 +39,7 @@ export const disciplinas: Disciplina[] = [
     media: 10,
     faltas: 0,
     progresso: 50,
+    icon: <Atom className="h-10 w-10" />,
   },
   {
     id: 4,
@@ -48,44 +48,52 @@ export const disciplinas: Disciplina[] = [
     media: 6,
     faltas: 5,
     progresso: 20,
+    icon: <FlaskConical className="h-10 w-10" />,
   },
 ]
 
 export function DisciplinaDetalhes() {
   return (
-    <div className="md: grid grid-cols-2 gap-4">
-      {disciplinas.map((disciplina) => (
-        <Card key={disciplina.id}>
-          <CardHeader>
-            <CardTitle>{disciplina.nome}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="md: grid grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <div>
-                  <p className="text-sm text-muted-foreground">Professor</p>
-                  <p className="font-medium">{disciplina.professor}</p>
+    <div className="space-y-4 px-4 py-6">
+      <header>
+        <h1 className="text-2xl font-bold"> Minhas Disciplinas</h1>
+
+        <p className="text-muted-foreground">
+          Acompanhe seu progresso nas Materias
+        </p>
+      </header>
+      <div className="grid gap-4 px-4 pt-7 md:grid-cols-2">
+        {disciplinas.map((disciplina) => (
+          <Card key={disciplina.id}>
+            <CardContent className="p-4">
+              <div className="flex gap-4">
+                <div className="items-top flex h-14 w-14 shrink-0">
+                  {disciplina.icon}
                 </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Media</p>
-                  <p className="font-medium">{disciplina.media}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Faltas</p>
-                  <p className="font-medium">{disciplina.faltas}</p>
+
+                <div className="flex-1">
+                  <div className="mb-3">
+                    <h3 className="font-semibold">{disciplina.nome}</h3>
+
+                    <p className="text-sm text-muted-foreground">
+                      Prof. {disciplina.professor}
+                    </p>
+
+                    <div>
+                      <div className="mb-2 flex justify-between text-sm">
+                        <span>Progresso</span>
+
+                        <span>{disciplina.progresso}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <Progress value={disciplina.progresso} />
                 </div>
               </div>
-              <div>
-                <div className="mb-2 flex justify-between">
-                  <span>Progresso</span>
-                  <span>{disciplina.progresso}</span>
-                </div>
-                <Progress value={20} />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </div>
   )
 }
