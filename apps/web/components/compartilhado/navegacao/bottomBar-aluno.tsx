@@ -8,7 +8,7 @@ import {
 } from "lucide-react"
 import { Link } from "react-router"
 
-export function BottomBar() {
+export function BottomBarAluno() {
   return (
     <nav className="fixed right-0 bottom-0 left-0 z-50 border-t bg-background">
       <div className="flex h-16 items-center justify-around">
@@ -28,11 +28,6 @@ export function BottomBar() {
         >
           <ClipboardList className="h-5 w-5" />
           <span>Tarefas</span>
-        </Link>
-
-        <Link to="/notas" className="flex flex-col items-center text-xs">
-          <BookmarkCheckIcon className="h-5 w-5" />
-          <span>Notas</span>
         </Link>
 
         <Link to="" className="flex flex-col items-center text-xs">

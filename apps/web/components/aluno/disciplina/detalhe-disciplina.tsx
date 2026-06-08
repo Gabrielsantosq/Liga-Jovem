@@ -1,99 +1,131 @@
-import { Card, CardContent } from "@workspace/ui/components/card"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@workspace/ui/components/card"
 
-import { Progress } from "@workspace/ui/components/progress"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@workspace/ui/components/tabs"
 
-type Disciplina = {
-  id: number
-  nome: string
-  professor: string
-  media: number
-  faltas: number
-  progresso: number
-  icon: React.ReactNode
+const notas = {
+  "1": [
+    { disciplina: "Matemática", media: 8.5 },
+    { disciplina: "Português", media: 7.0 },
+    { disciplina: "Física", media: 5.8 },
+    { disciplina: "Biologia", media: 4.0 },
+  ],
+
+  "2": [
+    { disciplina: "Matemática", media: 9.0 },
+    { disciplina: "Português", media: 8.0 },
+    { disciplina: "Física", media: 6.5 },
+    { disciplina: "Biologia", media: 5.0 },
+  ],
+
+  "3": [
+    { disciplina: "Matemática", media: 8.0 },
+    { disciplina: "Português", media: 7.5 },
+    { disciplina: "Física", media: 7.0 },
+    { disciplina: "Biologia", media: 6.0 },
+  ],
 }
-import { Calculator, Atom, MapPlusIcon, FlaskConical, Hand } from "lucide-react"
 
-export const disciplinas: Disciplina[] = [
-  {
-    id: 1,
-    nome: "Matematica",
-    professor: "jocelmo",
-    media: 10,
-    faltas: 0,
-    progresso: 80,
-    icon: <Calculator className="h-10 w-10" />,
-  },
-  {
-    id: 2,
-    nome: "Portugues",
-    professor: "maria",
-    media: 10,
-    faltas: 2,
-    progresso: 20,
-    icon: <Hand className="h-10 w-10" />,
-  },
-  {
-    id: 3,
-    nome: "Fisica",
-    professor: "Wagner",
-    media: 10,
-    faltas: 0,
-    progresso: 50,
-    icon: <Atom className="h-10 w-10" />,
-  },
-  {
-    id: 4,
-    nome: "Biologia",
-    professor: "Adriele",
-    media: 6,
-    faltas: 5,
-    progresso: 20,
-    icon: <FlaskConical className="h-10 w-10" />,
-  },
-]
+type DisciplinaNota = {
+  disciplina: string
+  media: number
+}
 
-export function DisciplinaDetalhes() {
+function ListaNotas({ disciplinas }: { disciplinas: DisciplinaNota[] }) {
+  const mediaGeral =
+    disciplinas.reduce((acc, item) => acc + item.media, 0) / disciplinas.length
+
+  const getSituacao = (media: number) => {
+    if (media >= 7)
+      return {
+        texto: "Ótimo",
+        classe: "text-green-500",
+      }
+
+    if (media >= 5)
+      return {
+        texto: "Médio",
+        classe: "text-yellow-500",
+      }
+
+    return {
+      texto: "Ruim",
+      classe: "text-red-500",
+    }
+  }
+
   return (
-    <div className="space-y-4 px-4 py-6">
-      <header>
-        <h1 className="text-2xl font-bold"> Minhas Disciplinas</h1>
+    <div className="space-y-4">
+      <Card>
+        <CardContent className="flex flex-col items-center py-6">
+          <p className="text-muted-foreground">Média Geral</p>
 
-        <p className="text-muted-foreground">
-          Acompanhe seu progresso nas Materias
-        </p>
-      </header>
-      <div className="grid gap-4 px-4 pt-7 md:grid-cols-2">
-        {disciplinas.map((disciplina) => (
-          <Card key={disciplina.id}>
-            <CardContent className="p-4">
-              <div className="flex gap-4">
-                <div className="items-top flex h-14 w-14 shrink-0">
-                  {disciplina.icon}
-                </div>
+          <h2 className="text-4xl font-bold">{mediaGeral.toFixed(1)}</h2>
+        </CardContent>
+      </Card>
 
-                <div className="flex-1">
-                  <div className="mb-3">
-                    <h3 className="font-semibold">{disciplina.nome}</h3>
+      {disciplinas.map((disciplina) => {
+        const situacao = getSituacao(disciplina.media)
 
-                    <p className="text-sm text-muted-foreground">
-                      Prof. {disciplina.professor}
-                    </p>
+        return (
+          <Card key={disciplina.disciplina}>
+            <CardContent className="flex items-center justify-between py-4">
+              <div>
+                <h3 className="font-medium">{disciplina.disciplina}</h3>
 
-                    <div>
-                      <div className="mb-2 flex justify-between text-sm">
-                        <span>Progresso</span>
-
-                        <span>{disciplina.progresso}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <Progress value={disciplina.progresso} />
-                </div>
+                <p className={`text-sm ${situacao.classe}`}>{situacao.texto}</p>
               </div>
+
+              <div className="text-2xl font-bold">{disciplina.media}</div>
             </CardContent>
           </Card>
-        ))}
-      </div>
+        )
+      })}
+    </div>
+  )
+}
+
+export function Notas() {
+  return (
+    <div className="space-y-6 p-4">
+      <header>
+        <h1 className="text-2xl font-bold">Minhas Notas</h1>
+
+        <p className="text-muted-foreground">
+          Acompanhe seu desempenho por bimestre
+        </p>
+      </header>
+
+      <Tabs defaultValue="1">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="1">1º Bimestre</TabsTrigger>
+
+          <TabsTrigger value="2">2º Bimestre</TabsTrigger>
+
+          <TabsTrigger value="3">3º Bimestre</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="1">
+          <ListaNotas disciplinas={notas["1"]} />
+        </TabsContent>
+
+        <TabsContent value="2">
+          <ListaNotas disciplinas={notas["2"]} />
+        </TabsContent>
+
+        <TabsContent value="3">
+          <ListaNotas disciplinas={notas["3"]} />
+        </TabsContent>
+      </Tabs>
     </div>
   )
 }

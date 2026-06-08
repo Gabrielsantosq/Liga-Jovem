@@ -12,7 +12,6 @@ import {
 import { Progress } from "@workspace/ui/components/progress"
 
 import { Trophy } from "lucide-react"
-import { NavUser } from "@workspace/ui/components/nav-user"
 
 const data = {
   user: {
