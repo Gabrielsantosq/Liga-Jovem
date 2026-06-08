@@ -20,7 +20,7 @@ type Atividade = {
   disciplina: string
   professor: string
   entrega: string
-  status: "pendente" | "andamento" | "concluida"
+  status: "pendente" | "andamento" | "concluida" | "todas"
 }
 const atividades: Atividade[] = [
   {
@@ -68,25 +68,26 @@ export function Atividade() {
   const atividadesConcluidas = atividades.filter(
     (atividade) => atividade.status === "concluida"
   )
+
   return (
     <div className="space-y-6">
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid grid-cols-3 gap-2">
         <Card>
-          <CardContent className="pt-6">
+          <CardContent className="flex flex-col items-center justify-center pt-5">
             <p className="text-muted-foreground">Pendentes</p>
             <h2 className="text-3xl font-bold">{atividadesPendentes.length}</h2>
           </CardContent>
         </Card>
 
         <Card>
-          <CardContent className="pt-6">
-            <p className="text-muted-foreground">Em andamento</p>
+          <CardContent className="flex flex-col items-center justify-center pt-5">
+            <p className="text-muted-foreground">andamento</p>
             <h2 className="text-3xl font-bold">{atividadesAndamento.length}</h2>
           </CardContent>
         </Card>
 
         <Card>
-          <CardContent className="pt-6">
+          <CardContent className="flex flex-col items-center justify-center pt-5">
             <p className="text-muted-foreground">Concluídas</p>
             <h2 className="text-3xl font-bold">
               {atividadesConcluidas.length}
@@ -101,14 +102,17 @@ export function Atividade() {
         </CardHeader>
 
         <CardContent>
-          <Tabs defaultValue="pendentes">
-            <TabsList>
-              <TabsTrigger value="pendentes">Pendentes</TabsTrigger>
-
-              <TabsTrigger value="andamento">Em andamento</TabsTrigger>
-
-              <TabsTrigger value="concluidas">Concluídas</TabsTrigger>
+          <Tabs defaultValue="todas">
+            <TabsList className="grid w-full grid-cols-4">
+              <TabsTrigger value="todas">Todas</TabsTrigger>
+              <TabsTrigger value="pendentes">Pend.</TabsTrigger>
+              <TabsTrigger value="andamento">Andam.</TabsTrigger>
+              <TabsTrigger value="concluidas">Concl.</TabsTrigger>
             </TabsList>
+
+            <TabsContent value="todas">
+              <ListaAtividades atividades={atividades} />
+            </TabsContent>
 
             <TabsContent value="pendentes">
               <ListaAtividades atividades={atividadesPendentes} />
