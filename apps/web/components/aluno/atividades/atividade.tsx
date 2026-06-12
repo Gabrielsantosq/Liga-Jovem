@@ -14,6 +14,8 @@ import {
   CardTitle,
 } from "@workspace/ui/components/card"
 
+import { Trophy } from "lucide-react"
+
 type Atividade = {
   id: number
   titulo: string

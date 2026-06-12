@@ -7,17 +7,20 @@ import {
 
 import { Button } from "@workspace/ui/components/button"
 
+import { Progress } from "@workspace/ui/components/progress"
+
 import { Link } from "react-router"
 
-import { BookOpen, FlaskConical, PenSquare, Calculator } from "lucide-react"
+import { BookOpen, FlaskConical, Calculator } from "lucide-react"
 
 type Atividade = {
   id: number
   titulo: string
   materia: string
-  professor: string
+  turma: string
   data: string
-  nota?: number
+  entregues: number
+  totalAlunos: number
   status: "pendente" | "concluida" | "rascunho"
   icon: React.ReactNode
 }
@@ -27,8 +30,10 @@ const atividades: Atividade[] = [
     id: 1,
     titulo: "Equações do 1º grau",
     materia: "Matemática",
-    professor: "Prof. Ana Clara",
+    turma: "1º Ano A",
     data: "14/05",
+    entregues: 20,
+    totalAlunos: 30,
     status: "pendente",
     icon: <Calculator className="h-5 w-5" />,
   },
@@ -37,9 +42,10 @@ const atividades: Atividade[] = [
     id: 2,
     titulo: "Reações químicas",
     materia: "Ciências",
-    professor: "Prof. João Pedro",
+    turma: "8º Ano A",
     data: "15/05",
-    nota: 9.2,
+    entregues: 30,
+    totalAlunos: 30,
     status: "concluida",
     icon: <FlaskConical className="h-5 w-5" />,
   },
@@ -48,21 +54,12 @@ const atividades: Atividade[] = [
     id: 3,
     titulo: "Revolução Francesa",
     materia: "História",
-    professor: "Prof. Maria Eduarda",
+    turma: "7º Ano B",
     data: "16/05",
-    nota: 8.5,
-    status: "concluida",
+    entregues: 18,
+    totalAlunos: 28,
+    status: "pendente",
     icon: <BookOpen className="h-5 w-5" />,
-  },
-
-  {
-    id: 4,
-    titulo: "Produção de texto",
-    materia: "Português",
-    professor: "Prof. Lucas Martins",
-    data: "17/05",
-    status: "rascunho",
-    icon: <PenSquare className="h-5 w-5" />,
   },
 ]
 
@@ -89,6 +86,8 @@ function StatusBadge({ status }: { status: Atividade["status"] }) {
 }
 
 function AtividadeItem({ atividade }: { atividade: Atividade }) {
+  const porcentagem = (atividade.entregues / atividade.totalAlunos) * 100
+
   return (
     <div className="space-y-3 rounded-2xl border p-4">
       <div className="flex items-start justify-between">
@@ -100,10 +99,8 @@ function AtividadeItem({ atividade }: { atividade: Atividade }) {
           <div>
             <h3 className="font-medium">{atividade.titulo}</h3>
 
-            <p className="text-sm text-muted-foreground">{atividade.materia}</p>
-
             <p className="text-sm text-muted-foreground">
-              {atividade.professor}
+              {atividade.materia} • {atividade.turma}
             </p>
           </div>
         </div>
@@ -111,31 +108,29 @@ function AtividadeItem({ atividade }: { atividade: Atividade }) {
         <StatusBadge status={atividade.status} />
       </div>
 
-      <div className="flex items-center justify-between text-sm">
-        <div>
-          <p className="text-muted-foreground">Entrega</p>
+      <div className="space-y-2">
+        <div className="flex justify-between text-sm">
+          <span className="text-muted-foreground">Entregas</span>
 
-          <p className="font-medium">{atividade.data}</p>
+          <span className="font-medium">
+            {atividade.entregues}/{atividade.totalAlunos}
+          </span>
         </div>
 
-        <div className="text-right">
-          <p className="text-muted-foreground">Nota</p>
-
-          <p className="font-medium">{atividade.nota ?? "--"}</p>
-        </div>
+        <Progress value={porcentagem} />
       </div>
     </div>
   )
 }
 
-export function CardAtividade() {
+export function PainelAtividade() {
   return (
     <Card className="rounded-3xl">
       <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Atividades da Semana</CardTitle>
+        <CardTitle>Atividades Recentes</CardTitle>
 
         <Button variant="ghost" asChild>
-          <Link to="/minhas-atividades">Ver todas</Link>
+          <Link to="/turmas">Ver todas</Link>
         </Button>
       </CardHeader>
 

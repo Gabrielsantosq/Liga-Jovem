@@ -20,7 +20,7 @@ export default function Page() {
           </div>
         </div>
       </main>
-      <div className="md: hidden"></div>
+
       <BottomBarAluno />
     </div>
   )

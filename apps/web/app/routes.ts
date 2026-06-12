@@ -11,8 +11,12 @@ export default [
 
   //Professor
   route("dashboard-professor", "routes/professor/dashboard.tsx"),
-  route("alunos", "routes/professor/alunos.tsx"),
-  route("atividades", "routes/professor/atividades.tsx"),
-  route("notas", "routes/professor/notas.tsx"),
+  route("atividades-professor", "routes/professor/atividades.tsx"),
+  route("notas-Professor", "routes/professor/notas.tsx"),
   route("turmas", "routes/professor/turmas.tsx"),
+
+  //turmas
+  route("turmas/:id", "routes/professor/detalhes-turma.tsx"),
+
+  route("teste", "routes/teste.tsx"),
 ] satisfies RouteConfig
