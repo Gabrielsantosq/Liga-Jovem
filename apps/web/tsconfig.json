@@ -17,6 +17,9 @@
     "paths": {
       "@/*": ["./app/*"],
       "@workspace/ui/*": ["../../packages/ui/src/*"],
+      "@workspace/database": ["../../packages/database/client.ts"],
+      "@workspace/database/*": ["../../packages/database/*"],
+      "@workspace/auth": ["../../packages/auth/lib/auth.ts"],
       "components/*": ["./components/*"],
     },
     "esModuleInterop": true,

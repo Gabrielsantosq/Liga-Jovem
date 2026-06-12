@@ -20,9 +20,6 @@ export const lessons = pgTable("lessons", {
   teacherId: text("teacher_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
-  topicId: text("topic_id")
-    .notNull()
-    .references(() => topics.id, { onDelete: "cascade" }),
   description: text("description"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),

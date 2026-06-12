@@ -38,7 +38,6 @@ export const activitiesRelations = relations(activities, ({ one }) => ({
   }),
   user: one(users, { fields: [activities.userId], references: [users.id] }),
   topic: one(topics, { fields: [activities.topicId], references: [topics.id] }),
-  }),
 }))
 
 export const activityTypeEnumValues = activityTypeEnum.enumValues

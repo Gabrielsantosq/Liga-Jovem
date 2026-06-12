@@ -1,7 +1,7 @@
 import { pgEnum, pgTable, text, timestamp, index } from "drizzle-orm/pg-core"
 import { relations } from "drizzle-orm"
 import { submissions } from "./submission"
-import { users } from "./user"
+import { users } from "./users"
 
 export const grades = pgTable("grades", {
   id: text("id").primaryKey(),

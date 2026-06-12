@@ -1,7 +1,7 @@
 import { pgEnum, pgTable, text, timestamp, index } from "drizzle-orm/pg-core"
 import { relations } from "drizzle-orm"
 
-const userRoles = pgEnum("user_roles", [
+export const userRoles = pgEnum("user_roles", [
   "student",
   "teacher",
   "admin",

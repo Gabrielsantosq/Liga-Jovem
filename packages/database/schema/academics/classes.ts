@@ -1,7 +1,7 @@
 import { pgEnum, pgTable, text, timestamp, index } from "drizzle-orm/pg-core"
 import { relations } from "drizzle-orm"
-import { school } from "./school"
-import { schoolYears } from "./schoolYears"
+import { schools } from "./school"
+import { schoolYear } from "./school_year"
 
 const shiftEnum = pgEnum("shift", ["morning", "afternoon", "night"])
 
@@ -9,10 +9,10 @@ export const classes = pgTable("classes", {
   id: text("id").primaryKey(),
   schoolId: text("school_id")
     .notNull()
-    .references(() => school.id, { onDelete: "cascade" }),
+    .references(() => schools.id, { onDelete: "cascade" }),
   schoolYearId: text("school_year_id")
     .notNull()
-    .references(() => schoolYears.id, { onDelete: "cascade" }),
+    .references(() => schoolYear.id, { onDelete: "cascade" }),
   name: text("name").notNull(),
   gradeLevel: text("grade_level").notNull(),
   shift: text("shift").notNull(),
@@ -21,9 +21,9 @@ export const classes = pgTable("classes", {
 })
 
 export const classesRelations = relations(classes, ({ one }) => ({
-  school: one(school, { fields: [classes.schoolId], references: [school.id] }),
-  schoolYear: one(schoolYears, {
+  school: one(schools, { fields: [classes.schoolId], references: [schools.id] }),
+  schoolYear: one(schoolYear, {
     fields: [classes.schoolYearId],
-    references: [schoolYears.id],
+    references: [schoolYear.id],
   }),
 }))

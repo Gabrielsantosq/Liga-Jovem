@@ -1,7 +1,7 @@
 import { pgEnum, pgTable, text, timestamp, index } from "drizzle-orm/pg-core"
 import { relations } from "drizzle-orm"
-import { activities } from "./activity"
-import { users } from "./user"
+import { activities } from "./activities"
+import { users } from "./users"
 
 export const submissionStatusEnum = pgEnum("submission_status", [
   "pending",

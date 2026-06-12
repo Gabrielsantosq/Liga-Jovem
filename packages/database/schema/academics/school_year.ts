@@ -1,6 +1,6 @@
 import { pgEnum, pgTable, text, timestamp, index } from "drizzle-orm/pg-core"
 import { relations } from "drizzle-orm"
-import { school } from "./school"
+import { schools } from "./school"
 
 export const schoolYearStatusEnum = pgEnum("school_year_status", [
   "active",
@@ -10,7 +10,7 @@ export const schoolYearStatusEnum = pgEnum("school_year_status", [
 export const schoolYear = pgTable("school_year", {
   id: text("id").primaryKey(),
   status: schoolYearStatusEnum("status"),
-  schoolId: text("school_id").references(() => school.id, {
+  schoolId: text("school_id").references(() => schools.id, {
     onDelete: "cascade",
   }),
   startsAt: timestamp("starts_at").notNull(),
@@ -20,8 +20,8 @@ export const schoolYear = pgTable("school_year", {
 })
 
 export const schoolYearRelations = relations(schoolYear, ({ one }) => ({
-  school: one(school, {
-    fields: [schoolYearTable.schoolId],
-    references: [school.id],
+  school: one(schools, {
+    fields: [schoolYear.schoolId],
+    references: [schools.id],
   }),
 }))
