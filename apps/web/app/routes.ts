@@ -11,11 +11,11 @@ export default [
 
   //Professor
   route("dashboard-professor", "routes/professor/dashboard.tsx"),
-  route("alunos", "routes/professor/alunos.tsx"),
-  route("atividades", "routes/professor/atividades.tsx"),
-  route("notas", "routes/professor/notas.tsx"),
+  route("atividades-professor", "routes/professor/atividades.tsx"),
+  route("notas-Professor", "routes/professor/notas.tsx"),
   route("turmas", "routes/professor/turmas.tsx"),
 
+<<<<<<< HEAD
   // API
   route("api/schools", "routes/api/schools.ts"),
   route("api/schools/:id", "routes/api/schools.$id.ts"),
@@ -43,4 +43,10 @@ export default [
   route("api/attendence/:id", "routes/api/attendence.$id.ts"),
   route("api/users", "routes/api/users.ts"),
   route("api/users/:id", "routes/api/users.$id.ts"),
+=======
+  //turmas
+  route("turmas/:id", "routes/professor/detalhes-turma.tsx"),
+
+  route("teste", "routes/teste.tsx"),
+>>>>>>> 533dfcb4f2c0a1130f1951ad3217dacf81d96f3a
 ] satisfies RouteConfig
