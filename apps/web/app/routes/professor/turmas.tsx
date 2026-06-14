@@ -1,5 +1,11 @@
 import { useState } from "react"
-import { useNavigate } from "react-router"
+import { useNavigate, useLoaderData, useFetcher, redirect } from "react-router"
+import type { LoaderFunctionArgs, ActionFunctionArgs } from "react-router"
+import { eq, inArray, count } from "drizzle-orm"
+import { db } from "@/.server/db"
+import { requireSession } from "@/.server/require-session"
+import { classes } from "@workspace/database/schema/academics/classes"
+import { classStudents } from "@workspace/database/schema/academics/class_students"
 
 import { Button } from "@workspace/ui/components/button"
 import {
@@ -8,7 +14,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card"
-
 import {
   Dialog,
   DialogContent,
@@ -17,59 +22,73 @@ import {
   DialogTrigger,
 } from "@workspace/ui/components/dialog"
 
-type Turma = {
-  id: string
-  ano: string
-  letra: string
-  codigo: string
-  alunos: string[]
+export async function loader({ request }: LoaderFunctionArgs) {
+  const session = await requireSession(request)
+
+  const turmas = await db
+    .select()
+    .from(classes)
+    .where(eq(classes.createdBy, session.user.id))
+
+  const studentCounts =
+    turmas.length > 0
+      ? await db
+          .select({ classId: classStudents.classId, total: count() })
+          .from(classStudents)
+          .where(
+            inArray(
+              classStudents.classId,
+              turmas.map((t) => t.id)
+            )
+          )
+          .groupBy(classStudents.classId)
+      : []
+
+  const countMap = Object.fromEntries(
+    studentCounts.map((r) => [r.classId, r.total])
+  )
+
+  return { turmas, countMap }
+}
+
+export async function action({ request }: ActionFunctionArgs) {
+  const session = await requireSession(request)
+
+  const formData = await request.formData()
+  const gradeLevel = formData.get("gradeLevel") as string
+  const letra = formData.get("letra") as string
+
+  if (!gradeLevel || !letra) {
+    return { error: "Preencha todos os campos" }
+  }
+
+  const code = Math.random().toString(36).substring(2, 8).toUpperCase()
+
+  await db.insert(classes).values({
+    id: crypto.randomUUID(),
+    name: letra,
+    gradeLevel,
+    shift: "morning",
+    code,
+    createdBy: session.user.id,
+  })
+
+  return redirect("/professor/turmas")
 }
 
 export default function TurmasProfessor() {
+  const { turmas, countMap } = useLoaderData<typeof loader>()
+  const fetcher = useFetcher<typeof action>()
   const navigate = useNavigate()
-
-  const [turmas, setTurmas] = useState<Turma[]>([
-    {
-      id: "1",
-      ano: "2º Ano",
-      letra: "A",
-      codigo: "ABC123",
-      alunos: ["1", "2", "3"],
-    },
-  ])
-
-  const [ano, setAno] = useState("")
-  const [letra, setLetra] = useState("")
   const [open, setOpen] = useState(false)
 
-  function gerarCodigo() {
-    return Math.random().toString(36).substring(2, 8).toUpperCase()
-  }
-
-  function criarTurma() {
-    if (!ano || !letra) return
-
-    const novaTurma: Turma = {
-      id: Date.now().toString(),
-      ano,
-      letra,
-      codigo: gerarCodigo(),
-      alunos: [],
-    }
-
-    setTurmas((prev) => [...prev, novaTurma])
-
-    setAno("")
-    setLetra("")
-    setOpen(false)
-  }
+  const isSubmitting = fetcher.state !== "idle"
 
   return (
     <main className="space-y-6 p-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold">Minhas Turmas</h1>
-
           <p className="text-muted-foreground">
             Gerencie e acompanhe suas turmas.
           </p>
@@ -85,35 +104,41 @@ export default function TurmasProfessor() {
               <DialogTitle>Criar Turma</DialogTitle>
             </DialogHeader>
 
-            <div className="space-y-4">
+            <fetcher.Form method="post" className="space-y-4">
               <select
+                name="gradeLevel"
                 className="w-full rounded-md border p-2"
-                value={ano}
-                onChange={(e) => setAno(e.target.value)}
+                defaultValue=""
               >
-                <option value="">Selecione o ano</option>
-
+                <option value="" disabled>
+                  Selecione o ano
+                </option>
                 <option value="1º Ano">1º Ano</option>
                 <option value="2º Ano">2º Ano</option>
                 <option value="3º Ano">3º Ano</option>
               </select>
 
               <select
+                name="letra"
                 className="w-full rounded-md border p-2"
-                value={letra}
-                onChange={(e) => setLetra(e.target.value)}
+                defaultValue=""
               >
-                <option value="">Selecione a turma</option>
-
+                <option value="" disabled>
+                  Selecione a turma
+                </option>
                 <option value="A">Turma A</option>
                 <option value="B">Turma B</option>
                 <option value="C">Turma C</option>
               </select>
 
-              <Button className="w-full" onClick={criarTurma}>
-                Salvar
+              {fetcher.data && "error" in fetcher.data && (
+                <p className="text-sm text-red-600">{fetcher.data.error}</p>
+              )}
+
+              <Button className="w-full" type="submit" disabled={isSubmitting}>
+                {isSubmitting ? "Salvando..." : "Salvar"}
               </Button>
-            </div>
+            </fetcher.Form>
           </DialogContent>
         </Dialog>
       </div>
@@ -124,7 +149,6 @@ export default function TurmasProfessor() {
             <h2 className="text-xl font-semibold">
               Você ainda não possui nenhuma turma
             </h2>
-
             <p className="text-sm text-muted-foreground">
               Crie uma turma para começar a adicionar alunos e atividades.
             </p>
@@ -136,21 +160,19 @@ export default function TurmasProfessor() {
             <Card key={turma.id}>
               <CardHeader>
                 <CardTitle>
-                  {turma.ano} {turma.letra}
+                  {turma.gradeLevel} {turma.name}
                 </CardTitle>
               </CardHeader>
 
               <CardContent className="space-y-4">
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground">
-                    {turma.alunos.length} alunos
+                    {countMap[turma.id] ?? 0} alunos
                   </p>
-
                   <p className="text-sm text-muted-foreground">
                     Código da turma:
                   </p>
-
-                  <p className="font-semibold tracking-wider">{turma.codigo}</p>
+                  <p className="font-semibold tracking-wider">{turma.code}</p>
                 </div>
 
                 <Button

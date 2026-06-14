@@ -15,6 +15,13 @@
       "when": 1781285699234,
       "tag": "0001_special_ted_forrester",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1781443740934,
+      "tag": "0002_flimsy_maggott",
+      "breakpoints": true
     }
   ]
 }

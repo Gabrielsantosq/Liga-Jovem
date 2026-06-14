@@ -1,8 +1,14 @@
 import { type RouteConfig, index, route } from "@react-router/dev/routes"
 
 export default [
-  index("routes/login.tsx"),
+  index("routes/redirect-root.ts"),
+  route("login", "routes/login.tsx"),
   route("sign-up", "routes/sign-up.tsx"),
+  route("home", "routes/redirect-home.ts"),
+  route("sign-out", "routes/sign-out.ts"),
+
+  // Better-auth handler
+  route("api/auth/*", "routes/api/auth.$.ts"),
 
   // API
   route("api/schools", "routes/api/schools.ts"),
@@ -31,23 +37,23 @@ export default [
   route("api/attendence/:id", "routes/api/attendence.$id.ts"),
   route("api/users", "routes/api/users.ts"),
   route("api/users/:id", "routes/api/users.$id.ts"),
-  //turmas
-  route("turmas/:id", "routes/professor/detalhes-turma.tsx"),
-
   // Professor
   route("professor", "routes/professor/layout.tsx", [
     route("turmas", "routes/professor/turmas.tsx"),
-
     route("turmas/:id", "routes/professor/detalhes-turma.tsx"),
-
     route("turmas/:id/atividades", "routes/professor/atividades.tsx"),
-
     route("turmas/:id/atividades/nova", "routes/professor/criar-atividade.tsx"),
-
     route(
       "turmas/:id/atividades/:atividadeId",
       "routes/professor/detalhes-atividade.tsx"
     ),
+    route("teste", "routes/teste.tsx"),
   ]),
-  route("teste", "routes/teste.tsx"),
+  route("aluno", "routes/aluno/layout.tsx", [
+    route("home", "routes/aluno/home.tsx"),
+    route("entrar-turma", "routes/aluno/entrar-turma.tsx"),
+    route("turma/:id", "routes/aluno/turma.tsx"),
+    route("turma/:id/atividades", "routes/aluno/atividades.tsx"),
+    route("turma/:id/atividades/:atividadesId", "routes/aluno/detalhes-atividade.tsx"),
+  ]),
 ] satisfies RouteConfig

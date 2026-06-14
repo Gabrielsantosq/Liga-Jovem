@@ -1,5 +1,6 @@
-import { useLocation, useParams } from "react-router"
+import { useLocation, useParams, Form } from "react-router"
 import { AvatarAluno } from "../avatar/avatar-aluno"
+import { LogOut } from "lucide-react"
 
 export function TopBarAluno() {
   const location = useLocation()
@@ -23,6 +24,15 @@ export function TopBarAluno() {
 
       <div className="flex items-center gap-3">
         <AvatarAluno />
+        <Form method="post" action="/sign-out">
+          <button
+            type="submit"
+            className="flex items-center gap-1 rounded-md p-2 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            title="Sair"
+          >
+            <LogOut className="h-5 w-5" />
+          </button>
+        </Form>
       </div>
     </header>
   )

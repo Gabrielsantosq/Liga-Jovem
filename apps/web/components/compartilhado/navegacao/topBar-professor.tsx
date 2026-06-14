@@ -1,5 +1,6 @@
+import { Form } from "react-router"
 import { Separator } from "@workspace/ui/components/separator"
-
+import { LogOut } from "lucide-react"
 import { AvatarProfessor } from "../avatar/avatar-professor"
 
 export function TopBarProfessor() {
@@ -11,7 +12,15 @@ export function TopBarProfessor() {
 
       <div className="flex items-center gap-3">
         <AvatarProfessor />
-        <div className="flex items-center gap-3"></div>
+        <Form method="post" action="/sign-out">
+          <button
+            type="submit"
+            className="flex items-center gap-1 rounded-md p-2 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            title="Sair"
+          >
+            <LogOut className="h-5 w-5" />
+          </button>
+        </Form>
       </div>
     </header>
   )

@@ -1,94 +1,103 @@
-import { useParams, Link } from "react-router"
+import { useLoaderData } from "react-router"
+import type { LoaderFunctionArgs } from "react-router"
+import { eq } from "drizzle-orm"
+import { db } from "@/.server/db"
+import { requireSession } from "@/.server/require-session"
+import { activities } from "@workspace/database/schema/academics/activities"
+import { submissions } from "@workspace/database/schema/academics/submission"
+import { Link } from "react-router"
 
-type Atividade = {
-  id: string
-  turmaId: string
-  titulo: string
-  materia: string
-  dataEntrega: string
-  status: "pendente" | "entregue" | "atrasado"
-  nota?: number
+export async function loader({ request, params }: LoaderFunctionArgs) {
+  const session = await requireSession(request)
+
+  const atividadesList = await db
+    .select()
+    .from(activities)
+    .where(eq(activities.classId, params.id!))
+
+  const submissoesList = await db
+    .select()
+    .from(submissions)
+    .where(eq(submissions.userId, session.user.id))
+
+  const submissaoMap = Object.fromEntries(
+    submissoesList.map((s) => [s.activityId, s])
+  )
+
+  const now = new Date()
+  const atividadesComStatus = atividadesList.map((a) => {
+    const sub = a.id ? submissaoMap[a.id] : null
+    let status: "pendente" | "entregue" | "atrasado" = "pendente"
+    if (sub) {
+      status = "entregue"
+    } else if (a.dueDate && new Date(a.dueDate) < now) {
+      status = "atrasado"
+    }
+    return { ...a, status, nota: sub?.grade ?? null }
+  })
+
+  return { atividades: atividadesComStatus, classId: params.id! }
 }
 
-export default function Atividades() {
-  const { id } = useParams()
+function getStatusColor(status: "pendente" | "entregue" | "atrasado") {
+  if (status === "pendente") return "text-yellow-600 border-yellow-300"
+  if (status === "entregue") return "text-green-600 border-green-300"
+  return "text-red-600 border-red-300"
+}
 
-  const atividades: Atividade[] = [
-    {
-      id: "1",
-      turmaId: "1",
-      titulo: "Lista de Frações",
-      materia: "Matemática",
-      dataEntrega: "Amanhã",
-      status: "pendente",
-      nota: 8.5,
-    },
-    {
-      id: "2",
-      turmaId: "1",
-      titulo: "Redação Argumentativa",
-      materia: "Português",
-      dataEntrega: "Sexta-feira",
-      status: "entregue",
-      nota: 9,
-    },
-    {
-      id: "3",
-      turmaId: "1",
-      titulo: "Exercícios de História",
-      materia: "História",
-      dataEntrega: "Semana que vem",
-      status: "atrasado",
-    },
-  ]
-
-  function getStatusColor(status: Atividade["status"]) {
-    if (status === "pendente") return "text-yellow-600 border-yellow-300"
-    if (status === "entregue") return "text-green-600 border-green-300"
-    return "text-red-600 border-red-300"
-  }
+export default function AtividadesAluno() {
+  const { atividades, classId } = useLoaderData<typeof loader>()
 
   return (
     <main className="min-h-screen space-y-6 px-6 py-8">
       <header>
-        <h1 className="text-2xl font-bold">Atividades da Turma {id}</h1>
+        <h1 className="text-2xl font-bold">Atividades da Turma</h1>
         <p className="text-sm text-muted-foreground">
           Todas as atividades disponíveis nesta turma.
         </p>
       </header>
 
-      <section className="space-y-3">
-        {atividades.map((a) => (
-          <Link
-            key={a.id}
-            to={`/aluno/turma/${id}/atividades/${a.id}`}
-            className="block rounded-xl border p-4 transition hover:bg-muted"
-          >
-            <div className="flex items-center justify-between">
-              <p className="font-medium">{a.titulo}</p>
+      {atividades.length === 0 ? (
+        <p className="text-sm text-muted-foreground">
+          Nenhuma atividade disponível.
+        </p>
+      ) : (
+        <section className="space-y-3">
+          {atividades.map((a) => (
+            <Link
+              key={a.id}
+              to={`/aluno/turma/${classId}/atividades/${a.id}`}
+              className="block rounded-xl border p-4 transition hover:bg-muted"
+            >
+              <div className="flex items-center justify-between">
+                <p className="font-medium">{a.name}</p>
 
-              <span
-                className={`rounded-full border px-2 py-1 text-xs ${getStatusColor(
-                  a.status
-                )}`}
-              >
-                {a.status}
-              </span>
-            </div>
+                <span
+                  className={`rounded-full border px-2 py-1 text-xs ${getStatusColor(a.status)}`}
+                >
+                  {a.status}
+                </span>
+              </div>
 
-            <div className="mt-2 flex justify-between text-xs text-muted-foreground">
-              <span>{a.materia}</span>
-              <span>Entrega: {a.dataEntrega}</span>
-            </div>
+              <div className="mt-2 flex justify-between text-xs text-muted-foreground">
+                <span className="capitalize">{a.type}</span>
+                <span>
+                  Entrega:{" "}
+                  {a.dueDate
+                    ? new Date(a.dueDate).toLocaleDateString("pt-BR")
+                    : "—"}
+                </span>
+              </div>
 
-            {a.nota !== undefined && (
-              <p className="mt-2 text-xs text-muted-foreground">
-                Nota: {a.nota}
-              </p>
-            )}
-          </Link>
-        ))}
-      </section>
+              {a.nota && (
+                <p className="mt-2 text-xs text-muted-foreground">
+                  Nota: {a.nota}
+                </p>
+              )}
+            </Link>
+          ))}
+        </section>
+      )}
     </main>
   )
 }

@@ -12,24 +12,26 @@ import { Input } from "@workspace/ui/components/input"
 
 export function LoginForm({
   className,
+  error,
   ...props
-}: React.ComponentProps<"div">) {
+}: React.ComponentProps<"div"> & { error?: string }) {
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden p-0">
         <CardContent className="grid p-0 md:grid-cols-2">
-          <form className="p-6 md:p-8">
+          <form method="post" className="p-6 md:p-8">
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
-                <h1 className="text-2xl font-bold">Welcome back</h1>
+                <h1 className="text-2xl font-bold">Bem-vindo de volta</h1>
                 <p className="text-balance text-muted-foreground">
-                  Login to your Acme Inc account
+                  Entre na sua conta
                 </p>
               </div>
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
                   placeholder="m@example.com"
                   required
@@ -37,18 +39,15 @@ export function LoginForm({
               </Field>
               <Field>
                 <div className="flex items-center">
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
-                  <a
-                    href="#"
-                    className="ml-auto text-sm underline-offset-2 hover:underline"
-                  >
-                    Forgot your password?
-                  </a>
+                  <FieldLabel htmlFor="password">Senha</FieldLabel>
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" name="password" type="password" required />
               </Field>
+              {error && (
+                <p className="text-center text-sm text-red-600">{error}</p>
+              )}
               <Field>
-                <Button type="submit">Login</Button>
+                <Button type="submit" className="w-full">Entrar</Button>
               </Field>
               <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
                 Ou continue com

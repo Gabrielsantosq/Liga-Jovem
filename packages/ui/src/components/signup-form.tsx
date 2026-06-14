@@ -9,6 +9,14 @@ import {
   FieldSeparator,
 } from "@workspace/ui/components/field"
 import { Input } from "@workspace/ui/components/input"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@workspace/ui/components/select"
 
 export function SignupForm({
   className,
@@ -21,11 +29,15 @@ export function SignupForm({
           <form className="p-6 md:p-8">
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
-                <h1 className="text-2xl font-bold">Create your account</h1>
+                <h1 className="text-2xl font-bold">Criar conta</h1>
                 <p className="text-sm text-balance text-muted-foreground">
-                  Enter your email below to create your account
+                  Insira suas informações
                 </p>
               </div>
+              <Field>
+                <FieldDescription>Nome</FieldDescription>
+                <Input id="name" type="name" placeholder="Nome" required />
+              </Field>
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
                 <Input
@@ -35,9 +47,23 @@ export function SignupForm({
                   required
                 />
                 <FieldDescription>
-                  We&apos;ll use this to contact you. We will not share your
-                  email with anyone else.
+                  Usamos essa informação para contato. Suas informações pessoais
+                  não serão compartilhadas
                 </FieldDescription>
+              </Field>
+              <Field>
+                <FieldDescription>Professor ou aluno</FieldDescription>
+                <Select>
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Selecione" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectItem value="teacher">Professor</SelectItem>
+                      <SelectItem value="student">Aluno</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               </Field>
               <Field>
                 <Field className="grid grid-cols-2 gap-4">
