@@ -1,6 +1,5 @@
 import { Separator } from "@workspace/ui/components/separator"
 
-import { NotificacoesMenu } from "../notificacoes/notificacoes-menu"
 import { AvatarProfessor } from "../avatar/avatar-professor"
 
 export function TopBarProfessor() {
@@ -11,7 +10,6 @@ export function TopBarProfessor() {
       </div>
 
       <div className="flex items-center gap-3">
-        <NotificacoesMenu />
         <AvatarProfessor />
         <div className="flex items-center gap-3"></div>
       </div>
