@@ -132,3 +132,26 @@ Rotas:
 
 
 ``
+
+
+Steps
+
+  # 1. Clone the repo
+  git clone <repo-url>
+  cd Liga-Jovem
+
+  # 2. Install dependencies
+  bun install
+
+  # 3. Set up environment variables
+  # Edite .env — o DATABASE_URL 
+  # Gere o segredo: openssl rand -hex 32  → paste into BETTER_AUTH_SECRET
+
+  # 4. Start the database
+  docker compose up -d
+
+  # 5. Run migrations (creates all tables)
+  bun db:migrate
+
+  # 6. Start the app
+  bun dev

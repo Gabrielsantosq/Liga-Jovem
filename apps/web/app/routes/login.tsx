@@ -20,11 +20,15 @@ export async function action({ request }: ActionFunctionArgs) {
       body: { email, password },
       asResponse: true,
     })
-  } catch {
+  } catch (err) {
+    console.error("[login] signInEmail threw:", err)
     return { error: "Ocorreu um erro. Tente novamente." }
   }
 
+  console.log("[login] response status:", authResponse.status)
   if (!authResponse.ok) {
+    const body = await authResponse.text()
+    console.error("[login] auth failed body:", body)
     return { error: "Email ou senha incorretos" }
   }
 
