@@ -44,7 +44,7 @@ export default function CriarAtividade() {
   return (
     <main className="min-h-screen space-y-8 bg-[#FAF8F4] p-6">
       <header className="space-y-1">
-        <h1 className="text-2xl font-bold text-[#0b4d2b]">Nova atividade</h1>
+        <h1 className="font-sans text-2xl text-[#0b4d2b]">Nova atividade</h1>
         <p className="text-sm text-muted-foreground">
           Crie uma atividade para os alunos da turma.
         </p>
@@ -52,7 +52,7 @@ export default function CriarAtividade() {
 
       <Form method="post" className="space-y-5">
         <div className="space-y-2">
-          <label className="text-sm font-medium text-[#1C1C1C]">Título</label>
+          <label className="font-sans text-sm text-[#1C1C1C]">Título</label>
           <Input
             name="name"
             placeholder="Ex: Lista de Frações"
@@ -62,7 +62,7 @@ export default function CriarAtividade() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-[#1C1C1C]">Tipo</label>
+          <label className="font-sans text-sm text-[#1C1C1C]">Tipo</label>
           <select
             name="type"
             className="w-full rounded-md border border-[#E6E2DC] bg-white p-2 outline-none focus:border-[#0b4d2b]"
@@ -76,7 +76,7 @@ export default function CriarAtividade() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-[#1C1C1C]">
+          <label className="font-sans text-sm text-[#1C1C1C]">
             Data de entrega
           </label>
           <Input
@@ -87,9 +87,7 @@ export default function CriarAtividade() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-[#1C1C1C]">
-            Descrição
-          </label>
+          <label className="font-sans text-sm text-[#1C1C1C]">Descrição</label>
           <textarea
             name="description"
             className="min-h-40 w-full rounded-md border border-[#E6E2DC] bg-white p-3 outline-none focus:border-[#0b4d2b] focus:ring-[#0b4d2b]/20"

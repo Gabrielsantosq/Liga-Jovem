@@ -17,10 +17,14 @@ export function TopBarAluno() {
   }
 
   return (
-    <header className="flex h-16 items-center justify-between border-b bg-background px-6">
+    <header className="flex h-16 items-center justify-between border-b border-[#334155] bg-[#1E293B] px-6">
       <div className="flex items-center gap-4">
-        <h1 className="text-xl font-semibold">{titulo}</h1>
-        <meta></meta>
+        <img
+          src="/components/compartilhado/avatar/elo.png"
+          alt="Logo"
+          className="h-10 w-10 object-contain"
+        />
+        <h1 className="font-sans text-xl text-white">Aluno</h1>
       </div>
 
       <div className="flex items-center gap-3">

@@ -40,46 +40,50 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 }
 
 function getStatusColor(status: "pendente" | "entregue" | "atrasado") {
-  if (status === "pendente") return "text-yellow-600 border-yellow-300"
-  if (status === "entregue") return "text-green-600 border-green-300"
-  return "text-red-600 border-red-300"
+  if (status === "pendente") return "text-amber-100 border-amber-700"
+  if (status === "entregue") return "text-green-100 border-green-700"
+  return "text-red-100 border-red-700"
 }
 
 export default function AtividadesAluno() {
   const { atividades, classId } = useLoaderData<typeof loader>()
 
   return (
-    <main className="min-h-screen space-y-6 bg-[#F7F4F1] px-6 py-8">
+    <main className="min-h-screen space-y-6 bg-[#FAF8F4] px-6 py-8">
       <header>
-        <h1 className="text-2xl font-bold">Atividades da Turma</h1>
-        <p className="text-sm text-muted-foreground">
+        <h1 className="font-sans text-3xl text-[#1F2937]">
+          Atividades da Turma
+        </h1>
+        <p className="text-sm text-[#6B7280]">
           Todas as atividades disponíveis nesta turma.
         </p>
       </header>
 
       {atividades.length === 0 ? (
-        <p className="text-sm text-muted-foreground">
-          Nenhuma atividade disponível.
-        </p>
+        <div className="rounded-2xl border border-[#E8E3DA] bg-white p-6 text-center shadow-sm">
+          <p className="text-sm text-[#6B7280]">
+            Nenhuma atividade disponível.
+          </p>
+        </div>
       ) : (
         <section className="space-y-3">
           {atividades.map((a) => (
             <Link
               key={a.id}
               to={`/aluno/turma/${classId}/atividades/${a.id}`}
-              className="block rounded-xl border p-4 transition hover:bg-muted"
+              className="block rounded-2xl border border-[#E8E3DA] bg-white p-5 shadow-sm transition-all hover:-translate-y-1 hover:border-[#DCE7F5] hover:shadow-md"
             >
               <div className="flex items-center justify-between">
-                <p className="font-medium">{a.name}</p>
+                <p className="font-sans text-lg text-[#1F2937]">{a.name}</p>
 
                 <span
-                  className={`rounded-full border px-2 py-1 text-xs ${getStatusColor(a.status)}`}
+                  className={`rounded-full px-3 py-1 text-xs font-medium ${getStatusColor(a.status)}`}
                 >
                   {a.status}
                 </span>
               </div>
 
-              <div className="mt-2 flex justify-between text-xs text-muted-foreground">
+              <div className="mt-3 flex justify-between text-sm text-[#6B7280]">
                 <span className="capitalize">{a.type}</span>
                 <span>
                   Entrega:{" "}
@@ -90,9 +94,9 @@ export default function AtividadesAluno() {
               </div>
 
               {a.nota && (
-                <p className="mt-2 text-xs text-muted-foreground">
-                  Nota: {a.nota}
-                </p>
+                <div className="mt-4 rounded-xl bg-[#EEF5FF] px-3 py-2">
+                  <p className="text-sm text-[#1E3A8A]">Nota: {a.nota}</p>
+                </div>
               )}
             </Link>
           ))}

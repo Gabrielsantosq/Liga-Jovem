@@ -32,7 +32,7 @@ export default function DetalhesAtividadeProfessor() {
       </Link>
 
       <header className="space-y-1">
-        <h1 className="text-2xl font-bold text-[#0b4d2b]">{atividade.name}</h1>
+        <h1 className="font-sans text-2xl text-[#0b4d2b]">{atividade.name}</h1>
         <p className="text-sm text-muted-foreground capitalize">
           {atividade.type}
         </p>
@@ -40,7 +40,7 @@ export default function DetalhesAtividadeProfessor() {
 
       {atividade.description && (
         <section className="space-y-2 rounded-xl border border-[#E6E2DC] bg-white p-4 shadow-sm">
-          <h2 className="font-semibold text-[#0b4d2b]">Descrição</h2>
+          <h2 className="font-sans text-[#0b4d2b]">Descrição</h2>
           <p className="text-sm leading-relaxed text-muted-foreground">
             {atividade.description}
           </p>
@@ -50,7 +50,7 @@ export default function DetalhesAtividadeProfessor() {
       <section className="grid grid-cols-2 gap-4">
         <div className="rounded-xl border border-[#E6E2DC] bg-white p-4 shadow-sm">
           <p className="text-xs text-muted-foreground">Data de entrega</p>
-          <p className="font-semibold text-[#1C1C1C]">
+          <p className="font-sans text-[#1C1C1C]">
             {atividade.dueDate
               ? new Date(atividade.dueDate).toLocaleDateString("pt-BR")
               : "—"}
@@ -59,7 +59,7 @@ export default function DetalhesAtividadeProfessor() {
 
         <div className="rounded-xl border border-[#E6E2DC] bg-white p-4 shadow-sm">
           <p className="text-xs text-muted-foreground">Status</p>
-          <p className="font-semibold text-[#F59E0B] capitalize">
+          <p className="font-sans text-[#F59E0B] capitalize">
             {atividade.status ?? "—"}
           </p>
         </div>
@@ -68,7 +68,7 @@ export default function DetalhesAtividadeProfessor() {
       {atividade.score && (
         <div className="rounded-xl border border-[#E6E2DC] bg-white p-4 shadow-sm">
           <p className="text-xs text-muted-foreground">Pontuação máxima</p>
-          <p className="font-semibold text-[#0b4d2b]">{atividade.score}</p>
+          <p className="font-sans text-[#0b4d2b]">{atividade.score}</p>
         </div>
       )}
     </main>

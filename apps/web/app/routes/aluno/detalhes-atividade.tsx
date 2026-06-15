@@ -14,7 +14,8 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     .from(activities)
     .where(eq(activities.id, params.atividadesId!))
 
-  if (!atividade) throw new Response("Atividade não encontrada", { status: 404 })
+  if (!atividade)
+    throw new Response("Atividade não encontrada", { status: 404 })
 
   const [submissao] = await db
     .select()
@@ -34,7 +35,12 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     status = "atrasado"
   }
 
-  return { atividade, submissao: submissao ?? null, status, classId: params.id! }
+  return {
+    atividade,
+    submissao: submissao ?? null,
+    status,
+    classId: params.id!,
+  }
 }
 
 function classificarNota(nota: string) {
@@ -44,31 +50,32 @@ function classificarNota(nota: string) {
 }
 
 export default function DetalhesAtividade() {
-  const { atividade, submissao, status, classId } = useLoaderData<typeof loader>()
+  const { atividade, submissao, status, classId } =
+    useLoaderData<typeof loader>()
 
   return (
-    <main className="min-h-screen space-y-6 px-6 py-8">
+    <main className="min-h-screen space-y-6 bg-[#FAF8F4] px-6 py-8">
       <Link
         to={`/aluno/turma/${classId}/atividades`}
-        className="flex items-center gap-2 text-sm text-muted-foreground"
+        className="flex items-center gap-2 text-sm text-[#6B7280] transition-colors hover:text-[#4F46E5]"
       >
         ← Voltar
       </Link>
 
       <header className="space-y-1">
-        <h1 className="text-2xl font-bold">{atividade.name}</h1>
+        <h1 className="font-sans text-3xl text-[#1F2937]">{atividade.name}</h1>
 
-        <p className="text-sm text-muted-foreground capitalize">
+        <p className="text-sm text-[#6B7280] capitalize">
           {atividade.type} • Turma
         </p>
 
         <span
-          className={`inline-block rounded-full border px-3 py-1 text-xs ${
+          className={`inline-block rounded-full px-3 py-1 text-xs font-medium ${
             status === "pendente"
-              ? "border-yellow-300 text-yellow-600"
+              ? "border-yellow-100 text-yellow-700"
               : status === "entregue"
-                ? "border-green-300 text-green-600"
-                : "border-red-300 text-red-600"
+                ? "border-green-100 text-green-700"
+                : "border-red-100 text-red-700"
           }`}
         >
           {status}
@@ -76,33 +83,35 @@ export default function DetalhesAtividade() {
       </header>
 
       {atividade.description && (
-        <section className="space-y-2 rounded-xl border p-4">
-          <h2 className="font-semibold">Descrição</h2>
-          <p className="text-sm leading-relaxed text-muted-foreground">
+        <section className="space-y-3 rounded-2xl border border-[#E8E3DA] bg-white p-5 shadow-sm">
+          <h2 className="ffont-sans text-lg text-[#1F2937]">Descrição</h2>
+          <p className="leading-relaxed text-[#6B7280]">
             {atividade.description}
           </p>
         </section>
       )}
 
       <section className="grid grid-cols-2 gap-2">
-        <div className="rounded-xl border p-4">
-          <p className="text-xs text-muted-foreground">Entrega</p>
-          <p className="font-semibold">
+        <div className="rounded-2xl border border-[#DCE7F5] bg-[#EEF5FF] p-5">
+          <p className="text-xs text-[#64748B]">Entrega</p>
+          <p className="mt-1 font-sans text-lg text-[#1E3A8A]">
             {atividade.dueDate
               ? new Date(atividade.dueDate).toLocaleDateString("pt-BR")
               : "—"}
           </p>
         </div>
 
-        <div className="rounded-xl border p-4">
-          <p className="text-xs text-muted-foreground">Status</p>
-          <p className="font-semibold capitalize">{status}</p>
+        <div className="rounded-2xl border border-[#E8E3DA] bg-white p-5">
+          <p className="text-xs text-[#64748B]">Status</p>
+          <p className="mt-1 font-sans text-lg text-[#374151] capitalize">
+            {status}
+          </p>
         </div>
       </section>
 
-      <div className="rounded-xl border p-4">
-        <p className="text-xs text-muted-foreground">Nota</p>
-        <p className="font-semibold">
+      <div className="rounded-2xl border border-[#E8E3DA] bg-white p-5 shadow-sm">
+        <p className="text-xs text-[#64748B]">Nota</p>
+        <p className="mt-2 font-sans text-lg text-[#1F2937]">
           {submissao?.grade
             ? `${submissao.grade} — ${classificarNota(submissao.grade)}`
             : "—"}

@@ -29,7 +29,7 @@ export function SignupForm({
           <form className="p-6 md:p-8">
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
-                <h1 className="text-2xl font-bold">Criar conta</h1>
+                <h1 className="font-sans text-2xl">Criar conta</h1>
                 <p className="text-sm text-balance text-muted-foreground">
                   Insira suas informações
                 </p>

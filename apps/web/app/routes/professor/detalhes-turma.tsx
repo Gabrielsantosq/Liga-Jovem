@@ -43,26 +43,23 @@ export default function DetalhesTurma() {
   return (
     <main className="min-h-screen space-y-8 bg-[#FAF8F4] p-6">
       <header className="space-y-1">
-        <h1 className="text-2xl font-bold text-[#0b4d2b]">
+        <h1 className="font-sans text-2xl text-[#0b4d2b]">
           {turma.gradeLevel} {turma.name}
         </h1>
-        <p className="text-sm text-[#6b7280]">
+        <p className="font-sans text-sm text-[#6b7280]">
           Código da turma:
-          <span className="ml-1 font-semibold text-[#F59E0B]">
-            {" "}
-            {turma.code}
-          </span>
+          <span className="ml-1 font-sans text-[#F59E0B]"> {turma.code}</span>
         </p>
       </header>
 
       <section className="grid grid-cols-2 gap-4">
-        <div className="rounded-xl border border-[#E6E2DC] bg-white p-4 shadow-sm transition hover:border-[#F59E0B33]">
-          <p className="text-2xl font-bold text-[#0b4d2b]">{totalAlunos}</p>
-          <p className="text-sm text-muted-foreground">Alunos</p>
+        <div className="rounded-xl border border-[#E6E2DC] bg-white p-4 font-sans shadow-sm transition hover:border-[#F59E0B33]">
+          <p className="font-sans text-2xl text-[#0b4d2b]">{totalAlunos}</p>
+          <p className="font-sans text-sm text-muted-foreground">Alunos</p>
         </div>
 
         <div className="rounded-xl border border-[#E6E2DC] bg-white p-4 shadow-sm transition hover:border-[#F59E0B33]">
-          <p className="text-2xl font-bold text-[#0b4d2b]">
+          <p className="font-sans text-2xl text-[#0b4d2b]">
             {atividades.length}
           </p>
           <p className="text-sm text-muted-foreground">Atividades</p>
@@ -71,7 +68,7 @@ export default function DetalhesTurma() {
 
       <section className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold text-[#0b4d2b]">Atividades</h2>
+          <h2 className="font-sans text-xl text-[#0b4d2b]">Atividades</h2>
 
           <Button
             asChild
@@ -96,8 +93,8 @@ export default function DetalhesTurma() {
                 className="block rounded-xl border border-[#E6E2DC] bg-white p-4 transition hover:border-[#F59E0B] hover:shadow-sm"
               >
                 <div className="flex items-center justify-between">
-                  <p className="font-medium text-[#1C1C1C]">{atividade.name}</p>
-                  <span className="text-sm font-medium text-[#F59E0B]">
+                  <p className="font-sans text-[#1C1C1C]">{atividade.name}</p>
+                  <span className="font-sans text-sm text-[#F59E0B]">
                     {atividade.dueDate
                       ? new Date(atividade.dueDate).toLocaleDateString("pt-BR")
                       : "—"}

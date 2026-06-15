@@ -29,24 +29,27 @@ export default function HomeAluno() {
   const { turmas } = useLoaderData<typeof loader>()
 
   return (
-    <main className="flex min-h-screen flex-col bg-[#F7F4F1] px-6 py-8">
+    <main className="fflex min-h-screen flex-col bg-[#FAF8F4] px-6 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold">Minhas Turmas</h1>
-        <p className="text-muted-foreground">Visualize e acesse suas turmas.</p>
+        <h1 className="font-sans text-3xl text-[#0b4d2b]">Minhas Turmas</h1>
+        <p className="text-[#64748B]">Visualize e acesse suas turmas.</p>
       </div>
 
       {turmas.length === 0 ? (
         <div className="flex flex-1 flex-col items-center justify-center gap-4">
           <div className="space-y-2 text-center">
-            <h2 className="text-xl font-semibold">
+            <h2 className="font-sans text-xl text-[#0b4d2b]">
               Você ainda não faz parte de nenhuma turma
             </h2>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-[#64748B]">
               Entre em uma turma utilizando um código fornecido pelo professor.
             </p>
           </div>
 
-          <Button asChild>
+          <Button
+            asChild
+            className="bg-[#F59E0B] text-white hover:bg-[#D97706]"
+          >
             <Link to="/aluno/entrar-turma">
               <Plus className="mr-2 h-4 w-4" />
               Entrar em uma turma
@@ -59,18 +62,21 @@ export default function HomeAluno() {
             <Link
               key={turma.id}
               to={`/aluno/turma/${turma.id}`}
-              className="block rounded-xl border p-4 transition hover:bg-muted"
+              className="block rounded-2xl border border-[#E6E2DC] bg-white p-5 shadow-sm transition hover:border-[#BFDBFE] hover:bg-[#F8FAFC] hover:shadow-md"
             >
-              <h2 className="font-semibold">
+              <h2 className="font-sans text-[#0b4d2b]">
                 {turma.gradeLevel} {turma.name}
               </h2>
-              <p className="mt-1 text-sm text-muted-foreground">
+              <p className="mt-1 text-sm text-[#64748B]">
                 Toque para acessar a turma
               </p>
             </Link>
           ))}
 
-          <Button asChild>
+          <Button
+            asChild
+            className="bg-[#ff6b00] text-white hover:bg-[#D97706]"
+          >
             <Link to="/aluno/entrar-turma">
               <Plus className="mr-2 h-4 w-4" />
               Entrar em outra turma

@@ -52,9 +52,9 @@ export default function Turma() {
   const id = turma.id
 
   return (
-    <main className="min-h-screen space-y-8 bg-[#F7F4F1] px-6 py-8">
+    <main className="min-h-screen space-y-8 bg-[#FAF8F4] px-6 py-8">
       <header className="space-y-1">
-        <h1 className="text-2xl font-bold">
+        <h1 className="font-sans text-2xl text-[#0b4d2b]">
           {turma.gradeLevel} {turma.name}
         </h1>
         <p className="text-sm text-muted-foreground">
@@ -63,22 +63,22 @@ export default function Turma() {
       </header>
 
       <section className="grid grid-cols-3 gap-3">
-        <div className="rounded-md border border-[#0b4d2b] px-3 py-1">
-          <p className="text-xl font-semibold text-[#0b4d2b]">
+        <div className="rounded-xl border border-[#BFDBFE] bg-[#EFF6FF] px-3 py-3">
+          <p className="font-sans text-xl text-[#1D4ED8]">
             {atividades.length}
           </p>
-          <p className="text-xs">Atividades</p>
+          <p className="text-xs text-[#64748B]">Atividades</p>
         </div>
 
-        <div className="rounded-md border border-[#0b4d2b] px-3 py-1">
-          <p className="text-xl font-semibold text-[#0b4d2b]">
+        <div className="rounded-xl border border-[#BBF7D0] bg-[#F0FDF4] px-3 py-3">
+          <p className="font-sans text-xl text-[#15803D]">
             {atividades.filter((a) => a.status === "entregue").length}
           </p>
-          <p className="text-xs">Entregues</p>
+          <p className="text-xs text-[#64748B]">Entregues</p>
         </div>
 
-        <div className="rounded-md border border-[#0b4d2b] px-3 py-1">
-          <p className="text-xl font-semibold text-[#0b4d2b]">
+        <div className="rounded-xl border border-[#FED7AA] bg-[#FFF7ED] px-3 py-3">
+          <p className="ttext-xl font-sans text-[#EA580C]">
             {atividades.filter((a) => a.status === "pendente").length}
           </p>
           <p className="text-xs">Pendentes</p>
@@ -87,11 +87,11 @@ export default function Turma() {
 
       <section className="space-y-3">
         <div className="flex items-center justify-between">
-          <h2 className="font-semibold">Atividades recentes</h2>
+          <h2 className="font-sans text-[#0b4d2b]">Atividades recentes</h2>
 
           <Link
             to={`/aluno/turma/${id}/atividades`}
-            className="rounded-md border border-[#0b4d2b] bg-white px-3 py-1 text-sm text-[#0b4d2b] transition-colors"
+            className="rounded-lg border border-[#F59E0B] bg-white px-3 py-1 font-sans text-sm text-[#F59E0B] transition hover:bg-[#FFF7ED]"
           >
             Ver todas
           </Link>
@@ -107,18 +107,18 @@ export default function Turma() {
               <Link
                 key={a.id}
                 to={`/aluno/turma/${id}/atividades/${a.id}`}
-                className="block rounded-xl border p-4 transition hover:bg-muted"
+                className="block rounded-2xl border border-[#E6E2DC] bg-white p-4 shadow-sm transition hover:border-[#F59E0B33] hover:shadow-md"
               >
                 <div className="flex items-center justify-between">
-                  <p className="font-medium">{a.name}</p>
+                  <p className="font-sans text-[#0b4d2b]">{a.name}</p>
 
                   <span
                     className={`rounded-full border px-2 py-1 text-xs ${
                       a.status === "pendente"
-                        ? "border-yellow-300 text-yellow-600"
+                        ? "bg-[#FEF3C7] text-[#D97706]"
                         : a.status === "entregue"
-                          ? "border-green-300 text-green-600"
-                          : "border-red-300 text-red-600"
+                          ? "bg-[#DCFCE7] text-[#15803D]"
+                          : "bg-[#FEE2E2] text-[#DC2626]"
                     }`}
                   >
                     {a.status}
@@ -126,7 +126,7 @@ export default function Turma() {
                 </div>
 
                 <div className="mt-1 flex justify-between text-xs text-muted-foreground">
-                  <span className="capitalize">{a.type}</span>
+                  <span className="text-[#F59E0B] capitalize">{a.type}</span>
                   <span>
                     Entrega:{" "}
                     {a.dueDate
@@ -136,7 +136,7 @@ export default function Turma() {
                 </div>
 
                 {a.nota && (
-                  <p className="mt-1 text-xs text-muted-foreground">
+                  <p className="mt-2 font-sans text-xs text-[#1D4ED8]">
                     Nota: {a.nota}
                   </p>
                 )}

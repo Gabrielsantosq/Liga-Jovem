@@ -5,9 +5,15 @@ import { AvatarProfessor } from "../avatar/avatar-professor"
 
 export function TopBarProfessor() {
   return (
-    <header className="flex h-16 items-center justify-between border-b border-[#374151] bg-[#4B5563] px-6">
+    <header className="flex h-16 items-center justify-between border-b border-[#334155] bg-[#1E293B] px-6">
       <div className="flex items-center gap-4">
-        <Separator />
+        <img
+          src="/components/compartilhado/avatar/elo.png"
+          alt="logo"
+          className="h-10 w-10 object-contain"
+        />
+
+        <h1 className="font-sans text-xl text-white">Professor</h1>
       </div>
 
       <div className="flex items-center gap-3">

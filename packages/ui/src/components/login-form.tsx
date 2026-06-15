@@ -22,7 +22,7 @@ export function LoginForm({
           <form method="post" className="p-6 md:p-8">
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
-                <h1 className="text-2xl font-bold">Bem-vindo de volta</h1>
+                <h1 className="font-sans text-2xl">Bem-vindo de volta</h1>
                 <p className="text-balance text-muted-foreground">
                   Entre na sua conta
                 </p>
@@ -47,7 +47,9 @@ export function LoginForm({
                 <p className="text-center text-sm text-red-600">{error}</p>
               )}
               <Field>
-                <Button type="submit" className="w-full">Entrar</Button>
+                <Button type="submit" className="w-full">
+                  Entrar
+                </Button>
               </Field>
               <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
                 Ou continue com

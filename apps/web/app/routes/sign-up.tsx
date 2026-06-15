@@ -36,7 +36,8 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const data = (await authResponse.json()) as { user?: { role?: string } }
   const userRole = data.user?.role
-  const redirectTo = userRole === "teacher" ? "/professor/turmas" : "/aluno/home"
+  const redirectTo =
+    userRole === "teacher" ? "/professor/turmas" : "/aluno/home"
 
   const headers = new Headers()
   for (const cookie of authResponse.headers.getSetCookie()) {
@@ -54,23 +55,29 @@ export default function SignupPage() {
         <div className="flex flex-col gap-6">
           <Card className="overflow-hidden p-0">
             <CardContent className="grid p-0 md:grid-cols-2">
-              <Form method="post" className="p-6 md:p-8 space-y-4">
+              <Form method="post" className="space-y-4 p-6 md:p-8">
                 <div className="flex flex-col items-center gap-2 text-center">
-                  <h1 className="text-2xl font-bold">Criar conta</h1>
-                  <p className="text-balance text-sm text-muted-foreground">
+                  <h1 className="font-sans text-2xl">Criar conta</h1>
+                  <p className="text-sm text-balance text-muted-foreground">
                     Insira suas informações
                   </p>
                 </div>
 
                 <div className="space-y-1">
-                  <label htmlFor="name" className="text-sm font-medium">
+                  <label htmlFor="name" className="font-sans text-sm">
                     Nome
                   </label>
-                  <Input id="name" name="name" type="text" placeholder="Seu nome" required />
+                  <Input
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder="Seu nome"
+                    required
+                  />
                 </div>
 
                 <div className="space-y-1">
-                  <label htmlFor="email" className="text-sm font-medium">
+                  <label htmlFor="email" className="font-sans text-sm">
                     Email
                   </label>
                   <Input
@@ -83,14 +90,14 @@ export default function SignupPage() {
                 </div>
 
                 <div className="space-y-1">
-                  <label htmlFor="role" className="text-sm font-medium">
+                  <label htmlFor="role" className="font-sans text-sm">
                     Perfil
                   </label>
                   <select
                     id="role"
                     name="role"
                     required
-                    className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                    className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
                     defaultValue=""
                   >
                     <option value="" disabled>
@@ -102,14 +109,21 @@ export default function SignupPage() {
                 </div>
 
                 <div className="space-y-1">
-                  <label htmlFor="password" className="text-sm font-medium">
+                  <label htmlFor="password" className="font-sans text-sm">
                     Senha
                   </label>
-                  <Input id="password" name="password" type="password" required />
+                  <Input
+                    id="password"
+                    name="password"
+                    type="password"
+                    required
+                  />
                 </div>
 
                 {actionData?.error && (
-                  <p className="text-center text-sm text-red-600">{actionData.error}</p>
+                  <p className="text-center text-sm text-red-600">
+                    {actionData.error}
+                  </p>
                 )}
 
                 <Button type="submit" className="w-full">
@@ -126,7 +140,7 @@ export default function SignupPage() {
 
               <div className="relative hidden bg-muted md:block">
                 <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
-                  <span className="text-4xl font-bold">Liga Jovem</span>
+                  <span className="font-sans text-4xl">Liga Jovem</span>
                 </div>
               </div>
             </CardContent>

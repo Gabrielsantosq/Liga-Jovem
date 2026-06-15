@@ -52,16 +52,16 @@ export default function LoginPage() {
         <div className="flex flex-col gap-6">
           <Card className="overflow-hidden p-0">
             <CardContent className="grid p-0 md:grid-cols-2">
-              <Form method="post" className="p-6 md:p-8 space-y-4">
+              <Form method="post" className="space-y-4 p-6 md:p-8">
                 <div className="flex flex-col items-center gap-2 text-center">
-                  <h1 className="text-2xl font-bold">Bem-vindo de volta</h1>
-                  <p className="text-balance text-sm text-muted-foreground">
+                  <h1 className="font-sans text-2xl">Bem-vindo de volta</h1>
+                  <p className="text-sm text-balance text-muted-foreground">
                     Entre na sua conta
                   </p>
                 </div>
 
                 <div className="space-y-1">
-                  <label htmlFor="email" className="text-sm font-medium">
+                  <label htmlFor="email" className="font-sans text-sm">
                     Email
                   </label>
                   <Input
@@ -74,7 +74,7 @@ export default function LoginPage() {
                 </div>
 
                 <div className="space-y-1">
-                  <label htmlFor="password" className="text-sm font-medium">
+                  <label htmlFor="password" className="font-sans text-sm">
                     Senha
                   </label>
                   <Input
@@ -105,7 +105,7 @@ export default function LoginPage() {
 
               <div className="relative hidden bg-muted md:block">
                 <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
-                  <span className="text-4xl font-bold">Liga Jovem</span>
+                  <span className="font-sans text-4xl">Liga Jovem</span>
                 </div>
               </div>
             </CardContent>

@@ -58,32 +58,35 @@ export default function EntrarTurma() {
   const isSubmitting = navigation.state !== "idle"
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#F7F4F1] px-6">
+    <main className="flex min-h-screen items-center justify-center bg-[#FAF8F4] px-6">
       <div className="w-full max-w-md space-y-8">
         <div className="space-y-4 text-center">
           <div className="flex justify-center">
-            <div className="rounded-full bg-primary/10 p-4">
-              <GraduationCap className="h-10 w-10 text-primary" />
+            <div className="rounded-full bg-[#EFF6FF] p-4">
+              <GraduationCap className="h-10 w-10 text-[#0B4D2B]" />
             </div>
           </div>
 
           <div>
-            <h1 className="text-3xl font-bold text-[#0B4d2b]">
+            <h1 className="font-sans text-3xl text-[#0B4D2B]">
               Entrar em uma turma
             </h1>
-            <p className="mt-2 text-sm text-muted-foreground">
+            <p className="mt-2 text-sm text-[#64748B]">
               Digite o código fornecido pelo professor para acessar atividades,
               disciplinas e acompanhar seu desempenho.
             </p>
           </div>
         </div>
 
-        <Form method="post" className="space-y-4">
+        <Form
+          method="post"
+          className="space-y-4 rounded-2xl border border-[#E6E2DC] bg-white p-6 shadow-sm"
+        >
           <Input
             name="codigo"
             placeholder="Ex: ABC123"
             maxLength={6}
-            className="h-12 text-center text-lg uppercase"
+            className="h-12 text-center text-lg tracking-widest uppercase"
           />
 
           {actionData?.error && (
@@ -92,14 +95,18 @@ export default function EntrarTurma() {
             </p>
           )}
 
-          <Button className="h-12 w-full" type="submit" disabled={isSubmitting}>
+          <Button
+            className="hover:bg-[#D97706]l h-12 w-full bg-[#F59E0B] text-white"
+            type="submit"
+            disabled={isSubmitting}
+          >
             {isSubmitting ? "Entrando..." : "Entrar na turma"}
           </Button>
         </Form>
 
-        <div className="rounded-xl border bg-card p-4">
-          <h2 className="font-medium">Não possui um código?</h2>
-          <p className="mt-2 text-sm text-muted-foreground">
+        <div className="rounded-2xl border border-[#BFDBFE] bg-[#EFF6FF] p-5">
+          <h2 className="font-sans text-[#1D4ED8]">Não possui um código?</h2>
+          <p className="mt-2 text-sm text-[#64748B]">
             Solicite ao professor responsável o código da turma. Após entrar,
             ela ficará disponível na tela inicial.
           </p>

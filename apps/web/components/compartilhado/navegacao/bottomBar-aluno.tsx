@@ -5,7 +5,7 @@ export function BottomBarAluno() {
   const { id } = useParams()
 
   return (
-    <nav className="fixed right-0 bottom-0 left-0 border-t bg-background">
+    <nav className="fixed right-0 bottom-0 left-0 z-50 border-t border-[#334155] bg-[#1E293B] text-[#F8F6F1]">
       <div className="flex h-16 items-center justify-around">
         <Link to="/aluno/home" className="flex flex-col items-center text-xs">
           <Home className="h-5 w-5" />

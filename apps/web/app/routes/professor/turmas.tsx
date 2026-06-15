@@ -89,8 +89,8 @@ export default function TurmasProfessor() {
     <main className="min-h-screen space-y-6 bg-[#FAF8F4] p-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-[#0b4d2b]">Minhas Turmas</h1>
-          <p className="text-muted-foreground">
+          <h1 className="font-sans text-3xl text-[#0b4d2b]">Minhas Turmas</h1>
+          <p className="font-sans text-muted-foreground">
             Gerencie e acompanhe suas turmas.
           </p>
         </div>
@@ -104,7 +104,9 @@ export default function TurmasProfessor() {
 
           <DialogContent className="border border-[#E6E2DC] bg-white">
             <DialogHeader>
-              <DialogTitle className="text-[#1C1C1C]">Criar Turma</DialogTitle>
+              <DialogTitle className="font-sans text-[#1C1C1C]">
+                Criar Turma
+              </DialogTitle>
             </DialogHeader>
 
             <fetcher.Form method="post" className="space-y-4">
@@ -152,10 +154,10 @@ export default function TurmasProfessor() {
       {turmas.length === 0 ? (
         <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4">
           <div className="space-y-2 text-center">
-            <h2 className="ttext-xl font-semibold text-[#1C1C1C]">
+            <h2 className="font-sans text-xl text-[#1C1C1C]">
               Você ainda não possui nenhuma turma
             </h2>
-            <p className="text-sm text-muted-foreground">
+            <p className="font-sans text-sm text-muted-foreground">
               Crie uma turma para começar a adicionar alunos e atividades.
             </p>
           </div>
