@@ -41,33 +41,42 @@ export default function DetalhesTurma() {
   const id = turma.id
 
   return (
-    <main className="min-h-screen space-y-8 p-6">
+    <main className="min-h-screen space-y-8 bg-[#FAF8F4] p-6">
       <header className="space-y-1">
-        <h1 className="text-2xl font-bold">
+        <h1 className="text-2xl font-bold text-[#0b4d2b]">
           {turma.gradeLevel} {turma.name}
         </h1>
-        <p className="text-sm text-muted-foreground">
-          Código da turma: {turma.code}
+        <p className="text-sm text-[#6b7280]">
+          Código da turma:
+          <span className="ml-1 font-semibold text-[#F59E0B]">
+            {" "}
+            {turma.code}
+          </span>
         </p>
       </header>
 
       <section className="grid grid-cols-2 gap-4">
-        <div className="rounded-xl border p-4">
-          <p className="text-2xl font-bold">{totalAlunos}</p>
+        <div className="rounded-xl border border-[#E6E2DC] bg-white p-4 shadow-sm transition hover:border-[#F59E0B33]">
+          <p className="text-2xl font-bold text-[#0b4d2b]">{totalAlunos}</p>
           <p className="text-sm text-muted-foreground">Alunos</p>
         </div>
 
-        <div className="rounded-xl border p-4">
-          <p className="text-2xl font-bold">{atividades.length}</p>
+        <div className="rounded-xl border border-[#E6E2DC] bg-white p-4 shadow-sm transition hover:border-[#F59E0B33]">
+          <p className="text-2xl font-bold text-[#0b4d2b]">
+            {atividades.length}
+          </p>
           <p className="text-sm text-muted-foreground">Atividades</p>
         </div>
       </section>
 
       <section className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold">Atividades</h2>
+          <h2 className="text-xl font-semibold text-[#0b4d2b]">Atividades</h2>
 
-          <Button asChild>
+          <Button
+            asChild
+            className="bg-[#0b4d2b] text-white hover:bg-[#083824]"
+          >
             <Link to={`/professor/turmas/${id}/atividades/nova`}>
               Nova atividade
             </Link>
@@ -84,11 +93,11 @@ export default function DetalhesTurma() {
               <Link
                 key={atividade.id}
                 to={`/professor/turmas/${id}/atividades/${atividade.id}`}
-                className="block rounded-xl border p-4 transition hover:bg-muted"
+                className="block rounded-xl border border-[#E6E2DC] bg-white p-4 transition hover:border-[#F59E0B] hover:shadow-sm"
               >
                 <div className="flex items-center justify-between">
-                  <p className="font-medium">{atividade.name}</p>
-                  <span className="text-sm text-muted-foreground">
+                  <p className="font-medium text-[#1C1C1C]">{atividade.name}</p>
+                  <span className="text-sm font-medium text-[#F59E0B]">
                     {atividade.dueDate
                       ? new Date(atividade.dueDate).toLocaleDateString("pt-BR")
                       : "—"}

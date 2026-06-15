@@ -49,7 +49,7 @@ export default function AtividadesAluno() {
   const { atividades, classId } = useLoaderData<typeof loader>()
 
   return (
-    <main className="min-h-screen space-y-6 px-6 py-8">
+    <main className="min-h-screen space-y-6 bg-[#F7F4F1] px-6 py-8">
       <header>
         <h1 className="text-2xl font-bold">Atividades da Turma</h1>
         <p className="text-sm text-muted-foreground">

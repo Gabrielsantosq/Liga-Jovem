@@ -11,13 +11,38 @@ const pool = new Pool({ connectionString: process.env.DATABASE_URL })
 const db = drizzle(pool)
 
 const seedData = [
-  { name: "Prof. João Silva", email: "joao.prof@escola.com", password: "Senha123!", role: "teacher" as const },
-  { name: "Prof. Ana Costa", email: "ana.prof@escola.com", password: "Senha123!", role: "teacher" as const },
-  { name: "Carlos Aluno", email: "carlos.aluno@escola.com", password: "Senha123!", role: "student" as const },
-  { name: "Beatriz Aluna", email: "beatriz.aluno@escola.com", password: "Senha123!", role: "student" as const },
+  {
+    name: "Prof. João Silva",
+    email: "joao.prof@escola.com",
+    password: "Senha123!",
+    role: "teacher" as const,
+  },
+  {
+    name: "Prof. Ana Costa",
+    email: "ana.prof@escola.com",
+    password: "Senha123!",
+    role: "teacher" as const,
+  },
+  {
+    name: "Carlos Aluno",
+    email: "carlos.aluno@escola.com",
+    password: "Senha123!",
+    role: "student" as const,
+  },
+  {
+    name: "Beatriz Aluna",
+    email: "beatriz.aluno@escola.com",
+    password: "Senha123!",
+    role: "student" as const,
+  },
 ]
 
-async function upsertAcademicUser(id: string, name: string, email: string, role: "teacher" | "student") {
+async function upsertAcademicUser(
+  id: string,
+  name: string,
+  email: string,
+  role: "teacher" | "student"
+) {
   await db
     .insert(users)
     .values({ id, name, email, password: "auth-managed", role })
@@ -31,20 +56,39 @@ async function seed() {
 
   for (const u of seedData) {
     try {
-      const result = await auth.api.signUpEmail({
-        body: { name: u.name, email: u.email, password: u.password, role: u.role },
-      }) as { user: { id: string } }
+      const result = (await auth.api.signUpEmail({
+        body: {
+          name: u.name,
+          email: u.email,
+          password: u.password,
+          role: u.role,
+        },
+      })) as { user: { id: string } }
 
       await upsertAcademicUser(result.user.id, u.name, u.email, u.role)
       createdUsers.push({ id: result.user.id, name: u.name, role: u.role })
-      console.log(`✓ Created ${u.role}: ${u.name} (${u.email}) → id: ${result.user.id}`)
+      console.log(
+        `✓ Created ${u.role}: ${u.name} (${u.email}) → id: ${result.user.id}`
+      )
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err)
-      if (msg.toLowerCase().includes("already") || msg.toLowerCase().includes("unique") || msg.toLowerCase().includes("duplicate")) {
+      if (
+        msg.toLowerCase().includes("already") ||
+        msg.toLowerCase().includes("unique") ||
+        msg.toLowerCase().includes("duplicate")
+      ) {
         console.log(`⚠ Skipped (already exists): ${u.email}`)
         // Try to look up existing user to get their ID for the rest of the seed
-        const [existing] = await db.select().from(users).where(eq(users.email, u.email))
-        if (existing) createdUsers.push({ id: existing.id, name: existing.name, role: existing.role })
+        const [existing] = await db
+          .select()
+          .from(users)
+          .where(eq(users.email, u.email))
+        if (existing)
+          createdUsers.push({
+            id: existing.id,
+            name: existing.name,
+            role: existing.role,
+          })
       } else {
         console.error(`✗ Failed to create ${u.email}:`, msg)
       }

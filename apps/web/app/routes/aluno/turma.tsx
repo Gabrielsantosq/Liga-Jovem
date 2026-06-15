@@ -52,7 +52,7 @@ export default function Turma() {
   const id = turma.id
 
   return (
-    <main className="min-h-screen space-y-8 px-6 py-8">
+    <main className="min-h-screen space-y-8 bg-[#F7F4F1] px-6 py-8">
       <header className="space-y-1">
         <h1 className="text-2xl font-bold">
           {turma.gradeLevel} {turma.name}
@@ -63,23 +63,25 @@ export default function Turma() {
       </header>
 
       <section className="grid grid-cols-3 gap-3">
-        <div className="rounded-xl border p-4">
-          <p className="text-xl font-semibold">{atividades.length}</p>
-          <p className="text-xs text-muted-foreground">Atividades</p>
+        <div className="rounded-md border border-[#0b4d2b] px-3 py-1">
+          <p className="text-xl font-semibold text-[#0b4d2b]">
+            {atividades.length}
+          </p>
+          <p className="text-xs">Atividades</p>
         </div>
 
-        <div className="rounded-xl border p-4">
-          <p className="text-xl font-semibold">
+        <div className="rounded-md border border-[#0b4d2b] px-3 py-1">
+          <p className="text-xl font-semibold text-[#0b4d2b]">
             {atividades.filter((a) => a.status === "entregue").length}
           </p>
-          <p className="text-xs text-muted-foreground">Entregues</p>
+          <p className="text-xs">Entregues</p>
         </div>
 
-        <div className="rounded-xl border p-4">
-          <p className="text-xl font-semibold">
+        <div className="rounded-md border border-[#0b4d2b] px-3 py-1">
+          <p className="text-xl font-semibold text-[#0b4d2b]">
             {atividades.filter((a) => a.status === "pendente").length}
           </p>
-          <p className="text-xs text-muted-foreground">Pendentes</p>
+          <p className="text-xs">Pendentes</p>
         </div>
       </section>
 
@@ -89,7 +91,7 @@ export default function Turma() {
 
           <Link
             to={`/aluno/turma/${id}/atividades`}
-            className="text-sm text-primary"
+            className="rounded-md border border-[#0b4d2b] bg-white px-3 py-1 text-sm text-[#0b4d2b] transition-colors"
           >
             Ver todas
           </Link>

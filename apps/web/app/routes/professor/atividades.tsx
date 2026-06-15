@@ -22,16 +22,16 @@ export default function AtividadesProfessor() {
   const { atividades, classId } = useLoaderData<typeof loader>()
 
   return (
-    <main className="min-h-screen space-y-6 p-6">
+    <main className="min-h-screen space-y-6 bg-[#FAF8F4] p-6">
       <div className="flex items-center justify-between">
         <header>
-          <h1 className="text-2xl font-bold">Atividades</h1>
+          <h1 className="text-2xl font-bold text-[#0b4d2b]">Atividades</h1>
           <p className="text-sm text-muted-foreground">
             Todas as atividades desta turma.
           </p>
         </header>
 
-        <Button asChild>
+        <Button asChild className="bg-[#0b4d2b] text-white hover:bg-[#083824]">
           <Link to={`/professor/turmas/${classId}/atividades/nova`}>
             Nova atividade
           </Link>
@@ -48,11 +48,11 @@ export default function AtividadesProfessor() {
             <Link
               key={atividade.id}
               to={`/professor/turmas/${classId}/atividades/${atividade.id}`}
-              className="block rounded-xl border p-4 transition hover:bg-muted"
+              className="block rounded-xl border border-[#E6E2DC] bg-white p-4 transition hover:border-[#F59E0B] hover:shadow-sm"
             >
               <div className="flex items-center justify-between">
-                <p className="font-medium">{atividade.name}</p>
-                <span className="text-sm text-muted-foreground">
+                <p className="font-medium text-[#1C1C1C]">{atividade.name}</p>
+                <span className="text-sm font-medium text-[#F59E0B]">
                   {atividade.dueDate
                     ? new Date(atividade.dueDate).toLocaleDateString("pt-BR")
                     : "—"}

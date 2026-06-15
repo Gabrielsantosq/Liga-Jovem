@@ -58,7 +58,7 @@ export default function EntrarTurma() {
   const isSubmitting = navigation.state !== "idle"
 
   return (
-    <main className="flex min-h-screen items-center justify-center px-6">
+    <main className="flex min-h-screen items-center justify-center bg-[#F7F4F1] px-6">
       <div className="w-full max-w-md space-y-8">
         <div className="space-y-4 text-center">
           <div className="flex justify-center">
@@ -68,7 +68,9 @@ export default function EntrarTurma() {
           </div>
 
           <div>
-            <h1 className="text-3xl font-bold">Entrar em uma turma</h1>
+            <h1 className="text-3xl font-bold text-[#0B4d2b]">
+              Entrar em uma turma
+            </h1>
             <p className="mt-2 text-sm text-muted-foreground">
               Digite o código fornecido pelo professor para acessar atividades,
               disciplinas e acompanhar seu desempenho.

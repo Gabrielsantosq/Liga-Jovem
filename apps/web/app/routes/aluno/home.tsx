@@ -13,7 +13,11 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const session = await requireSession(request)
 
   const turmas = await db
-    .select({ id: classes.id, gradeLevel: classes.gradeLevel, name: classes.name })
+    .select({
+      id: classes.id,
+      gradeLevel: classes.gradeLevel,
+      name: classes.name,
+    })
     .from(classStudents)
     .innerJoin(classes, eq(classStudents.classId, classes.id))
     .where(eq(classStudents.studentId, session.user.id))
@@ -25,7 +29,7 @@ export default function HomeAluno() {
   const { turmas } = useLoaderData<typeof loader>()
 
   return (
-    <main className="flex min-h-screen flex-col px-6 py-8">
+    <main className="flex min-h-screen flex-col bg-[#F7F4F1] px-6 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold">Minhas Turmas</h1>
         <p className="text-muted-foreground">Visualize e acesse suas turmas.</p>

@@ -16,6 +16,7 @@ import {
 } from "@workspace/ui/components/card"
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -85,10 +86,10 @@ export default function TurmasProfessor() {
   const isSubmitting = fetcher.state !== "idle"
 
   return (
-    <main className="space-y-6 p-6">
+    <main className="min-h-screen space-y-6 bg-[#FAF8F4] p-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Minhas Turmas</h1>
+          <h1 className="text-3xl font-bold text-[#0b4d2b]">Minhas Turmas</h1>
           <p className="text-muted-foreground">
             Gerencie e acompanhe suas turmas.
           </p>
@@ -96,18 +97,20 @@ export default function TurmasProfessor() {
 
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <Button>+ Criar Turma</Button>
+            <Button className="bg-[#0b4d2b] text-white hover:bg-[#083824]">
+              + Criar Turma
+            </Button>
           </DialogTrigger>
 
-          <DialogContent>
+          <DialogContent className="border border-[#E6E2DC] bg-white">
             <DialogHeader>
-              <DialogTitle>Criar Turma</DialogTitle>
+              <DialogTitle className="text-[#1C1C1C]">Criar Turma</DialogTitle>
             </DialogHeader>
 
             <fetcher.Form method="post" className="space-y-4">
               <select
                 name="gradeLevel"
-                className="w-full rounded-md border p-2"
+                className="w-full rounded-md border border-[#E6E2DC] p-2 outline-none focus:border-[#0b4d2b]"
                 defaultValue=""
               >
                 <option value="" disabled>
@@ -120,7 +123,7 @@ export default function TurmasProfessor() {
 
               <select
                 name="letra"
-                className="w-full rounded-md border p-2"
+                className="w-full rounded-md border border-[#E6E2DC] p-2 outline-none focus:border-[#0b4d2b]"
                 defaultValue=""
               >
                 <option value="" disabled>
@@ -130,12 +133,15 @@ export default function TurmasProfessor() {
                 <option value="B">Turma B</option>
                 <option value="C">Turma C</option>
               </select>
-
               {fetcher.data && "error" in fetcher.data && (
                 <p className="text-sm text-red-600">{fetcher.data.error}</p>
               )}
 
-              <Button className="w-full" type="submit" disabled={isSubmitting}>
+              <Button
+                className="w-full bg-[#0b4d2b] text-white hover:bg-[#083824]"
+                type="submit"
+                disabled={isSubmitting}
+              >
                 {isSubmitting ? "Salvando..." : "Salvar"}
               </Button>
             </fetcher.Form>
@@ -146,7 +152,7 @@ export default function TurmasProfessor() {
       {turmas.length === 0 ? (
         <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4">
           <div className="space-y-2 text-center">
-            <h2 className="text-xl font-semibold">
+            <h2 className="ttext-xl font-semibold text-[#1C1C1C]">
               Você ainda não possui nenhuma turma
             </h2>
             <p className="text-sm text-muted-foreground">
@@ -157,9 +163,12 @@ export default function TurmasProfessor() {
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {turmas.map((turma) => (
-            <Card key={turma.id}>
+            <Card
+              key={turma.id}
+              className="border border-[#E6E2DC] bg-white shadow-sm transition hover:border-[#F59E0B40] hover:shadow-md"
+            >
               <CardHeader>
-                <CardTitle>
+                <CardTitle className="text-[#0b4d2b]">
                   {turma.gradeLevel} {turma.name}
                 </CardTitle>
               </CardHeader>
@@ -172,11 +181,13 @@ export default function TurmasProfessor() {
                   <p className="text-sm text-muted-foreground">
                     Código da turma:
                   </p>
-                  <p className="font-semibold tracking-wider">{turma.code}</p>
+                  <p className="ont-semibold tracking-wider text-[#F59E0B]">
+                    {turma.code}
+                  </p>
                 </div>
 
                 <Button
-                  className="w-full"
+                  className="w-full bg-[#0b4d2b] text-white transition hover:bg-[#083824]"
                   onClick={() => navigate(`/professor/turmas/${turma.id}`)}
                 >
                   Entrar

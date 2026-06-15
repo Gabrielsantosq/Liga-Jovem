@@ -42,9 +42,9 @@ export default function CriarAtividade() {
   const isSubmitting = navigation.state !== "idle"
 
   return (
-    <main className="min-h-screen space-y-8 p-6">
+    <main className="min-h-screen space-y-8 bg-[#FAF8F4] p-6">
       <header className="space-y-1">
-        <h1 className="text-2xl font-bold">Nova atividade</h1>
+        <h1 className="text-2xl font-bold text-[#0b4d2b]">Nova atividade</h1>
         <p className="text-sm text-muted-foreground">
           Crie uma atividade para os alunos da turma.
         </p>
@@ -52,15 +52,20 @@ export default function CriarAtividade() {
 
       <Form method="post" className="space-y-5">
         <div className="space-y-2">
-          <label className="text-sm font-medium">Título</label>
-          <Input name="name" placeholder="Ex: Lista de Frações" required />
+          <label className="text-sm font-medium text-[#1C1C1C]">Título</label>
+          <Input
+            name="name"
+            placeholder="Ex: Lista de Frações"
+            required
+            className="border border-[#E6E2DC] focus:border-[#0b4d2b] focus:ring-[#0b4d2b]/20"
+          />
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium">Tipo</label>
+          <label className="text-sm font-medium text-[#1C1C1C]">Tipo</label>
           <select
             name="type"
-            className="w-full rounded-md border bg-background p-2"
+            className="w-full rounded-md border border-[#E6E2DC] bg-white p-2 outline-none focus:border-[#0b4d2b]"
             defaultValue="assignment"
           >
             <option value="assignment">Tarefa</option>
@@ -71,20 +76,32 @@ export default function CriarAtividade() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium">Data de entrega</label>
-          <Input type="date" name="dueDate" />
+          <label className="text-sm font-medium text-[#1C1C1C]">
+            Data de entrega
+          </label>
+          <Input
+            type="date"
+            name="dueDate"
+            className="border-[#E6E2DC] focus:border-[#F59E0B] focus:ring-[#F59E0B]/20"
+          />
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium">Descrição</label>
+          <label className="text-sm font-medium text-[#1C1C1C]">
+            Descrição
+          </label>
           <textarea
             name="description"
-            className="min-h-40 w-full rounded-md border bg-background p-3"
+            className="min-h-40 w-full rounded-md border border-[#E6E2DC] bg-white p-3 outline-none focus:border-[#0b4d2b] focus:ring-[#0b4d2b]/20"
             placeholder="Descreva a atividade..."
           />
         </div>
 
-        <Button className="w-full" type="submit" disabled={isSubmitting}>
+        <Button
+          className="w-full bg-[#0b4d2b] text-white hover:bg-[#083824]"
+          type="submit"
+          disabled={isSubmitting}
+        >
           {isSubmitting ? "Criando..." : "Criar atividade"}
         </Button>
       </Form>

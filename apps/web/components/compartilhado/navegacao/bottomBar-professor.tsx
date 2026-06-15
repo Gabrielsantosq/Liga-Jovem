@@ -3,7 +3,7 @@ import { Link } from "react-router"
 
 export function BottomBarProfessor() {
   return (
-    <nav className="fixed right-0 bottom-0 left-0 z-50 border-t bg-background">
+    <nav className="fixed right-0 bottom-0 left-0 z-50 border-t border-[#374151] bg-[#4B5563] text-[#F8F6F1]">
       <div className="flex h-16 items-center justify-around">
         <Link
           to="/professor/turmas"
