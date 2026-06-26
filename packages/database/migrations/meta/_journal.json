@@ -29,6 +29,13 @@
       "when": 1782473693577,
       "tag": "0003_charming_living_mummy",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1782490991216,
+      "tag": "0004_even_paper_doll",
+      "breakpoints": true
     }
   ]
 }
