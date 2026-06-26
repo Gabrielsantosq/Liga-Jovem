@@ -8,4 +8,7 @@ export default defineConfig({
   // Load .env from monorepo root so DATABASE_URL and other secrets are available in SSR
   envDir: path.resolve(__dirname, "../../"),
   plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
+  server: {
+    allowedHosts: true,
+  },
 })
